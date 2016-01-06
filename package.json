@@ -1,0 +1,18 @@
+{
+  "name": "shirt-store",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-contrib-watch": "^0.6.1"
+  },
+  "dependencies": {
+
+  },
+  "author": {
+    "name": "panchai prasompech",
+    "email": "thongtank@gmail.com",
+    "url": "https://www.facebook.com/t0ngsKaroon"
+  }
+}
