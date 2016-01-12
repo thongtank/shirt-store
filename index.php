@@ -1,85 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-    <style>
-    .se-pre-con {
-        position: fixed;
-        left: 0px;
-        top: 0px;
-        width: 100%;
-        height: 100%;
-        z-index: 9999;
-        background: url(images/Preloader_3.gif) center no-repeat #fff;
-        opacity: 0.4;
-    }
-    </style>
-</head>
-
-<body>
-    <!-- div for loading animation -->
-    <div class="se-pre-con"></div>
-    <a href="#" onclick="fb_login();">Login With Facebook</a>
-    </div>
-</body>
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script>
-window.fbAsyncInit = function() {
-    FB.init({
-        appId: '439183889614868',
-        xfbml: true,
-        version: 'v2.5'
-    });
-};
-
-(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {
-        return;
-    }
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
-<script>
-function fb_login() {
-    FB.login(function(response) {
-        if (response.authResponse) {
-            FB.api('/me?fields=id,name,first_name,last_name,age_range,link,gender,locale,timezone,updated_time,verified,email', function(response) {
-                $.ajax({
-                        url: 'php/register.php',
-                        type: 'POST',
-                        data: {
-                            obj: JSON.stringify(response)
-                        },
-                        beforeSend: function() {
-                            $('.se-pre-con').show();
-                        },
-                        complete: function() {
-                            $('.se-pre-con').hide();
-                        }
-                    })
-                    .done(function(res) {
-                        if (res === 'done') {
-                            console.log("insert success");
-                        } else {
-                            console.log('failed : ' + res);
-                        }
-                    });
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>EZ Teesh</title>
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="css/bootstrap-material-design.css" rel="stylesheet" type="text/css"/>
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/ezteech.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <?php
+        include './nav.php';
+        //include './home.php';
+        //include './frm-register.php';
+        //include './frm-add-product.php';
+        //include './list-credit.php';
+        //include './frm-add-credit.php';
+        include './list-product.php';
+        ?>
+        <div class="clearfix"></div>
+        <footer>
+            © 2016 EZTeesh
+        </footer>
+        <?php
+        // put your code here
+        ?>
+        <script src="js/jquery.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script>
+            $("#p_cotton").change(function () {
+                var p_cottonText = $("#p_cotton").val().toString();
+                if (p_cottonText === "Cotton ไทย") {
+                    $("#r5").hide();
+                    $("#lr5").hide();
+                } else {
+                    $("#r5").show();
+                    $("#lr5").show();
+                }
             });
-        } else {
 
-        }
-    }, {
-        scope: 'public_profile,email'
-    });
-}
-</script>
+            $("#fileMockUp").change(function () {
+                readURL(this, 'imgMockUp');
+            });
 
-<!-- script src files -->
-<script src="js/main.js"></script>
+            $("#file1").change(function () {
+                readURL(this, 'img1');
+            });
+            
+            $("#file2").change(function () {
+                readURL(this, 'img2');
+            });
+            
+            $("#file3").change(function () {
+                readURL(this, 'img3');
+            });
+            
+            $("#file4").change(function () {
+                readURL(this, 'img4');
+            });
+            
+            $("#file5").change(function () {
+                readURL(this, 'img5');
+            });
+            
+            $("#file6").change(function () {
+                readURL(this, 'img6');
+            });
+
+            function readURL(input, divName) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('.' + divName).css('background', "url(" + e.target.result + ")");
+                        $('.' + divName).css('background-size', "cover");
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+        </script>
+    </body>
 </html>
