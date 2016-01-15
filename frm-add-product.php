@@ -1,3 +1,6 @@
+<?php
+require_once 'header.inc.php';
+?>
 <div class="clearfix"></div>
 <div class="content">
     <h2 class="title">เพิ่มข้อมูลสินค้า</h2>
@@ -118,3 +121,6 @@
         </div>
     </form>
 </div>
+<?php
+require_once './footer.inc.php';
+?>

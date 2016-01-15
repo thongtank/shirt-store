@@ -14,7 +14,7 @@ class database {
 
     public function connection() {
         $this->mysqli = mysqli_init();
-        $link = $this->mysqli->real_connect(LOCALHOST, USER, PWD, DBNAME);
+        $link = $this->mysqli->real_connect(LOCALHOST, USER, PWD, DBNAME, PORT);
         if ($link) {
             // echo "YES";
             $this->mysqli->set_charset("UTF8");
@@ -29,7 +29,7 @@ class database {
         $this->mysqli = null;
     }
 
-    public function query($sql, &$rows, &$num_rows) {
+    public function query($sql, &$rows, &$num_rows, &$last_id) {
         if (self::connection()) {
             // $sql = 'update `itsurvay`.`research` SET `firstname` = \'TONG\' WHERE `research`.`id` = 1;';
             // $sql = 'select * from research;';
@@ -45,6 +45,7 @@ class database {
                     if ($result) {
                         $rows = null;
                         $num_rows = 0;
+                        $last_id = $this->mysqli->insert_id;
                     } else {
                         // echo
                         return "Error2 : " . $this->mysqli->errno . " = " . $this->mysqli->error;
@@ -52,8 +53,9 @@ class database {
                     $result = null;
                 }
             } else {
-                // echo "Error : " . $mysqli->errno . " = " . $mysqli->error;
-                return "Error1 : " . $this->mysqli->errno . " = " . $this->mysqli->error;
+                echo "Error : " . $mysqli->errno . " = " . $mysqli->error;
+                // return "Error1 : " . $this->mysqli->errno . " = " . $this->mysqli->error;
+                return false;
             }
             self::close_connection();
             return true;
@@ -61,7 +63,8 @@ class database {
     }
 }
 
-// $conndb = new database;
+$conndb = new database;
+$conndb->connection();
 /*
 ตัวอย่างการเรียกใช้งาน database
 $data = new QueryDB;
