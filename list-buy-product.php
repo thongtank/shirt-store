@@ -1,9 +1,13 @@
 <?php
+
 require_once 'header.inc.php';
+if (!isset($_SESSION['member_id'])) {
+    echo "<meta http-equiv='refresh' content='0;url=index.php'>";
+}
 ?>
 <div class="clearfix"></div>
 <div class="content">
-    <div class="table-responsive">        
+    <div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
@@ -14,7 +18,7 @@ require_once 'header.inc.php';
                     <th>จำนวนซื้อ</th>
                     <th>วันที่ทำรายการ</th>
                     <th>สถานะ</th>
-                </tr> 
+                </tr>
             </thead>
             <tbody>
                 <tr>

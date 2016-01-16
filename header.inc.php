@@ -1,5 +1,6 @@
 <?php
 session_start();
+// print_r($_SESSION);
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once 'backend/config/autoload.inc.php';

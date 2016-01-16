@@ -1,4 +1,5 @@
 <?php
+// สำหรับการสมัครผ่าน facebook account
 session_start();
 include_once 'config/autoload.inc.php';
 

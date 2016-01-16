@@ -17,7 +17,8 @@ function fb_login() {
                     })
                     .done(function(res) {
                         if (res == 'new') {
-                            window.location = 'frm-update-profile.php';
+                            // window.location = 'frm-update-profile.php';
+                            window.location = 'register-success.php';
                         } else if (res == 'done') {
                             window.location = 'index.php';
                         } else {

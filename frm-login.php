@@ -2,7 +2,7 @@
 <div id="login">
     <div class="col-md-6">
         <h2>ลงชื่อเข้าใช้</h2>
-        <form action="" method="POST" class="form-horizontal">
+        <form action="#" method="POST" class="form-horizontal">
             <div class="form-group">
                 <div class="col-md-12">
                     <input type="text" pattern="[a-zA-Z0-9_]{2,12}" class="form-control" id="username" name="username" placeholder="Username" required>
@@ -43,3 +43,5 @@
         <a href="#" class="btn btn-raised btn-info" onclick="fb_login();"><i class="fa fa-facebook-official"></i> ลงชื่อเข้าใช้ด้วย Facebook</a>
     </div>
 </div>
+
+<script src="js/login.js" type="text/javascript" charset="utf-8"></script>

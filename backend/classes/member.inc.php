@@ -84,7 +84,7 @@ class member extends db {
             $_SESSION['gender'] = $data['gender'];
             $_SESSION['mobile'] = $data['mobile'];
             $_SESSION['tel'] = $data['tel'];
-            $_SESSION['credit_balance'] = 0;
+            // $_SESSION['credit_balance'] = 0;
 
             return 1;
         } else {
@@ -143,14 +143,52 @@ class member extends db {
     }
 
     public function set_credit($data = array()) {
-        $date = date('Y-m-d');
-        $time = date('H:i:s');
-        $sql = "INSERT INTO `credit`(`id`, `package`, `credit`, `date_added`, `time_added`, `status`, `member_id`)
-            VALUES (NULL,'" . $data['pack'] . "'," . $data['credit'] . ", '" . $date . "','" . $time . "','pending','" . $_SESSION['member_id'] . "')";
+        /*
+        $sql = "INSERT INTO `credit`(`id`, `packet`, `credit`, `date_added`, `time_added`, `status`, `member_id`)
+        VALUES (NULL,'" . $data['pack'] . "'," . $data['credit'] . ", '" . $date . "','" . $time . "','pending','" . $_SESSION['member_id'] . "')";
+         */
+        $date_added = date('Y-m-d H:i:s');
+        $date_expired = date('Y-m-d H:i:s', strtotime('+1 days', strtotime($date_added)));
+
+        $sql = "INSERT INTO `credit`(`invoice_id`, `packet`, `credit`, `free`, `date_added`, `date_expired`, `status`, `member_id`) ";
+        $sql .= "VALUES (NULL,'" . $data['packet'] . "'," . $data['credit'] . "," . $data['free'] . ", '" . $date_added . "', '" . $date_expired . "', 'pending', " . $this->member_id . ")";
+
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            $_SESSION['invoice_id'] = $last_id;
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function get_credit_by_invoice_id($invoice_id) {
+        $sql = "SELECT * FROM credit WHERE invoice_id = " . $invoice_id . ";";
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return $rows[0];
+        }
+    }
+
+    public function login($data = array()) {
+        $sql = "SELECT * FROM member Where username = '" . $data['username'] . "' AND password = '" . $data['password'] . "';";
         $result = $this->query($sql, $rows, $num_rows);
         if ($result) {
-            $_SESSION['credit_for_confirm'] = $data['credit'];
-            return true;
+            // print "num row : " . $num_rows;
+            if ($num_rows > 0) {
+                $this->member_id = $rows[0]['member_id'];
+                if ($this->set_last_login_time()) {
+                    foreach ($rows[0] as $key => $value) {
+                        $_SESSION[$key] = $value;
+                    }
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
