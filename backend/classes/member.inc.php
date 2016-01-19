@@ -41,7 +41,6 @@ class member extends db {
                     // insert เวลาที่ login
                     $_SESSION['last_login'] = date("Y-m-d H:i:s");
                 }
-
                 return true;
 
             } else {

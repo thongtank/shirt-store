@@ -10,14 +10,14 @@ if (!defined('USER')) {
 if (!defined('PWD')) {
     // define('PWD', 'hit313339');
 
-    define('PWD', '489329');
+    define('PWD', '');
 }
 if (!defined('DBNAME')) {
     // define('DBNAME', 'hitshirts_db');
-    define('DBNAME', 'shirt');
+    define('DBNAME', 'ez');
 }
 if (!defined('PORT')) {
-    define('PORT', 8889);
+    define('PORT', 3306);
 
 }
 if (!defined('DS')) {
