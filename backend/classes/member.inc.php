@@ -184,28 +184,6 @@ class member extends db {
         }
     }
 
-
-    public function login($data = array()) {
-        $sql = "SELECT * FROM member Where username = '" . $data['username'] . "' AND password = '" . $data['password'] . "';";
-        $result = $this->query($sql, $rows, $num_rows);
-        if ($result) {
-            // print "num row : " . $num_rows;
-            if ($num_rows > 0) {
-                $this->member_id = $rows[0]['member_id'];
-                if ($this->set_last_login_time()) {
-                    foreach ($rows[0] as $key => $value) {
-                        $_SESSION[$key] = $value;
-                    }
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
-    }
-
     public function cancel_credit($invoice_id) {
         $sql = "DELETE FROM `credit` WHERE invoice_id = " . $invoice_id . " AND member_id = " . $this->member_id;
         print $sql;
@@ -217,7 +195,6 @@ class member extends db {
             return false;
         }
     }
-
 
     //admin
     public function get_credit_by_invoice_id_manager($invoice_id) {
