@@ -2,6 +2,7 @@
 require_once 'header.inc.php';
 if (!isset($_SESSION['member_id'])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'>";
+    exit;
 }
 ?>
 <div class="clearfix"></div>

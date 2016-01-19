@@ -1,8 +1,11 @@
-<?php
-require_once 'header.inc.php';
+<?php require_once 'header.inc.php';
 if (!isset($_SESSION['member_id'])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'>";
+    exit;
 }
+include_once 'backend/config/autoload.inc.php';
+use classes as cls;
+$member = new cls\member;
 ?>
     <div class="clearfix"></div>
     <div class="content">
@@ -81,40 +84,78 @@ if (!isset($_SESSION['member_id'])) {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td scope=row>1</td>
-                        <td>00135</td>
-                        <td><a href="add-credit-detail.php">Credit Packet 5,000 free 300</a></td>
-                        <td>5,000 บาท</td>
-                        <td>11/01/2016 11:11:11</td>
-                        <td>-</td>
-                        <td>
-                            <label class="label label-danger">รอการยืนยัน</label>
-                            <label class="label label-danger"><i class="fa fa-close"></i>ยกเลิกรายการ</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope=row>2</td>
-                        <td>00135</td>
-                        <td><a href="add-credit-detail.php">Credit Packet 5,000 free 300</a></td>
-                        <td>5,000 บาท</td>
-                        <td>11/01/2016 11:11:11</td>
-                        <td>11/01/2016 20:11:11</td>
-                        <td>
-                            <label class="label label-success">เติมเครดิตเรียบร้อย</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope=row>3</td>
-                        <td>00135</td>
-                        <td><a href="add-credit-detail.php">Credit Packet 5,000 free 300</a></td>
-                        <td>5,000 บาท</td>
-                        <td>11/01/2016 11:11:11</td>
-                        <td>11/01/2016 20:11:11</td>
-                        <td>
-                            <label class="label label-success">เติมเครดิตเรียบร้อย</label>
-                        </td>
-                    </tr>
+                    <?php
+$data = array();
+$member->member_id = $_SESSION['member_id'];
+$data = $member->get_list_credit();
+$i = 1;
+if (count($data) > 0) {
+    foreach ($data as $k => $v) {
+        /*
+        Array
+        (
+        [0] => Array
+        (
+        [invoice_id] => 00001
+        [packet] => Credit Packet 50,000 free 4,000
+        [credit] => 50000
+        [free] => 4000
+        [bank_to] =>
+        [bank_transfer] =>
+        [date_transfer] => 0000-00-00
+        [time_transfer] => 00:00:00
+        [date_added] => 2016-01-17 16:48:15
+        [date_expired] => 2016-01-18 16:48:15
+        [status] => pending
+        [member_id] => 4
+        [manager_id] =>
+        [date_confirm] => 0000-00-00 00:00:00
+        )
+
+        )
+         */
+        ?>
+                        <tr>
+                            <td scope=row><?=$i;?></td>
+                            <td><?=$v['invoice_id'];?></td>
+                            <td><a href="add-credit-detail.php?invoice_id=<?php echo $v['invoice_id']; ?>"><?=$v['packet'];?></a></td>
+                            <td><?=number_format($v['credit']);?> บาท</td>
+                            <td><?=$v['date_added'];?></td>
+                            <td>
+                            <?php
+if ($v['status'] == 'confirm') {
+            echo $data['date_confirm'];
+        } else {
+            echo '-';
+        }
+        ?>
+                            </td>
+                            <td>
+                                <?php
+$status = "";
+        $color = "";
+        if ($v['status'] == 'pending') {
+            $status = "รอการยืนยัน";
+            $color = "danger";
+        } elseif ($v['status'] == 'transfer') {
+            $status = "แจ้งการโอนเงินแล้ว";
+            $color = "info";
+        } else {
+            $status = "ยืนยันการรับเงินแล้ว";
+            $color = "success";
+        }
+
+        $cancel_url = 'cancel-credit.php?invoice_id=' . base64_encode($v['invoice_id']);
+        ?>
+                                <label class="label label-<?=$color;?>"><?=$status;?></label>
+                                <a href="<?=$cancel_url;?>" onclick="return confirm('ยืนยันการลบข้อมูล ?');"><label class="label label-danger"><i class="fa fa-close"></i> ยกเลิกรายการ</label></a>
+                            </td>
+                        </tr>
+                        <?php
+$i++;
+    }
+}
+?>
                 </tbody>
             </table>
         </div>

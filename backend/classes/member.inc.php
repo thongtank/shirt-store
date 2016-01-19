@@ -8,6 +8,9 @@ class member extends db {
 
     public $member_id, $facebook_id, $firstname, $lastname, $gender, $email, $tel, $mobile, $credit;
 
+    /*
+    MEMBER
+     */
     /** กรณีลงทะเบียนผ่าน facebook account */
     public function register($data = array()) {
         $sql = "SELECT * FROM member WHERE facebook_id = '" . $data['id'] . "'";
@@ -128,6 +131,9 @@ class member extends db {
         }
     }
 
+    /*
+    CREDIT
+     */
     public function get_balance() {
         $sql = "SELECT SUM(credit) AS credit FROM credit WHERE member_id = '" . $this->member_id . "';";
         // echo $sql;
@@ -140,6 +146,10 @@ class member extends db {
 
     public function get_list_credit() {
         $sql = "SELECT * FROM credit WHERE member_id = '" . $this->member_id . "';";
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return $rows;
+        }
     }
 
     public function set_credit($data = array()) {
@@ -155,10 +165,11 @@ class member extends db {
 
         $result = $this->query($sql, $rows, $num_rows, $last_id);
         if ($result) {
-            $_SESSION['invoice_id'] = $last_id;
-            return true;
+            return $last_id;
+            // $_SESSION['invoice_id'] = $last_id;
+            // return true;
         } else {
-            return false;
+            return 0;
         }
 
     }
@@ -171,6 +182,43 @@ class member extends db {
         }
     }
 
+    public function cancel_credit($invoice_id) {
+        $sql = "DELETE FROM `credit` WHERE invoice_id = " . $invoice_id . " AND member_id = " . $this->member_id;
+        print $sql;
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function transfer_credit($data = array()) {
+        /*
+        Array
+        (
+        [packet] => Credit Packet 500
+        [bank_to] => 2
+        [total] => 12222
+        [hidden-credit] => 500
+        [bank_transfer] => SCB
+        [date_transfer] => 2016-12-31
+        [time_transfer] => 00:59
+        )
+         */
+        $sql = "UPDATE credit SET total = " . $data['total'] . ", date_make_confirm = NOW(), status = 'transfered', bank_to = '" . $data['bank_to'] . "', bank_transfer = '" . $data['bank_transfer'] . "', date_transfer = '" . $data['date_transfer'] . "', time_transfer = '" . $data['time_transfer'] . "' ";
+        $sql .= "WHERE invoice_id = " . $data['invoice_id'] . " AND member_id = " . $this->member_id . ";";
+        // echo $sql;
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
+
+    /* LOGIN */
     public function login($data = array()) {
         $sql = "SELECT * FROM member Where username = '" . $data['username'] . "' AND password = '" . $data['password'] . "';";
         $result = $this->query($sql, $rows, $num_rows);

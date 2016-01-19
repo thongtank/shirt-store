@@ -11,8 +11,9 @@ $member->member_id = $_SESSION['member_id'];
 // - packet
 // - credit
 // - free
-if ($member->set_credit($_POST)) {
-    print 1;
+$data = $member->set_credit($_POST);
+if ($data != 0) {
+    print $data;
 } else {
     print 0;
 }

@@ -49,9 +49,9 @@ and open the template in the editor.
 
 <body>
     <div class="content">
-        <i class="fa fa-thumbs-down fa-6"></i>
-        <h1>การสมัครสมาชิกไม่สมบูรณ์</h1>
-        <a href="index.php">กลับหน้าหลัก</a>
+        <i class="fa fa-thumbs-up fa-6"></i>
+        <h1>แจ้งการโอนเงินเสร็จสมบูรณ์</h1>
+        <a href="frm-add-credit.php">กลับหน้าเติมเครดิต</a>
     </div>
 </body>
 
