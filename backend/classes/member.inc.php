@@ -216,8 +216,11 @@ class member extends db {
     }
 
     public function update_confirm_credit($data = array()) {
+        $add_credit = $data['credit'] + $data['free'];
         $sql = "UPDATE credit SET status = 'confirm',date_confirm=NOW(),manager_id='" . $data['manager_id'] . "' WHERE invoice_id = '" . $data['invoice_id'] . "';";
         $result = $this->query($sql, $rows, $num_rows, $last_id);
+        $sql_add_credit = "UPDATE member SET credit_balance = credit_balance +5000 WHERE member_id='" . $data['member_id'] . "'";
+        $this->query($sql_add_credit, $rows, $num_rows, $last_id);
         if ($result) {
             return true;
         }

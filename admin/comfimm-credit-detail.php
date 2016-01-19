@@ -46,10 +46,16 @@ switch ($data['status']) {
     $('#bnt_confirm').click(function () {
         var invoice_id = '<?= $data['invoice_id']; ?>';
         var u_id = '<?= $_SESSION['u_id']; ?>';
+        var credit = '<?= $data['credit']; ?>';
+        var free = '<?= $data['free']; ?>';
+        var member_id = '<?= $data['member_id']; ?>';
         if (confirm('คุณแน่ใจว่าตรวจสอบข้อมูลถูกต้องแล้ว?')) {
             $.post('../backend/update_confirm_credit.php', {
                 invoice_id: invoice_id.toString(),
-                manager_id: u_id.toString()
+                manager_id: u_id.toString(),
+                credit: credit,
+                free: free,
+                member_id: member_id
             }).done(function (res) {
                 console.log(res);
                 if (res === '1') {
