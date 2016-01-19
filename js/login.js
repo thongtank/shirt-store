@@ -12,11 +12,11 @@ $(function() {
             var url;
             if (res == 1) {
                 url = 'index.php';
+                window.location = url;
             } else {
                 alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
                 history.back();
             }
-            window.location = url;
         });
     });
 });
