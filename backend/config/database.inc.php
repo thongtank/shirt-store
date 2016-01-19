@@ -53,7 +53,7 @@ class database {
                     $result = null;
                 }
             } else {
-                echo "Error : " . $mysqli->errno . " = " . $mysqli->error;
+                echo "Error : " . $this->mysqli->errno . " = " . $this->mysqli->error;
                 // return "Error1 : " . $this->mysqli->errno . " = " . $this->mysqli->error;
                 return false;
             }
