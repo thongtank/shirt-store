@@ -56,7 +56,7 @@ if (isset($_SESSION['member_id'])) {
                                 <?php
 } else {
     ?>
-                                    <li><a href="login.php"><i class="fa fa-sign-in"></i> เข้าสู่ระบบ</a></li>
+                                    <li><a href="index.php"><i class="fa fa-sign-in"></i> เข้าสู่ระบบ</a></li>
                                     <li><a href="frm-register.php"><i class="fa fa-user-plus"></i> สมัครสมาชิก</a></li>
                                     <?php
 }
