@@ -34,9 +34,15 @@ $(function() {
             credit: credit,
             free: free
         }).done(function(data) {
+<<<<<<< HEAD
             // console.log(data);
             if (data == 1) {
                 window.location = 'add-credit-detail.php';
+=======
+            console.log(data);
+            if (data > 0) {
+                window.location = 'add-credit-detail.php?invoice_id=' + data;
+>>>>>>> master
             } else {
                 alert('การซื้อเครคิตเกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
                 window.location = 'frm-add-credit.php';

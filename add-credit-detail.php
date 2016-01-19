@@ -1,16 +1,21 @@
 <?php
 require_once 'header.inc.php';
 use classes as cls;
-if (!isset($_SESSION['member_id']) || !isset($_SESSION['invoice_id'])) {
+
+if (!isset($_SESSION['member_id']) || !isset($_GET['invoice_id'])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'>";
+    exit;
+
 } else {
     include_once 'backend/config/autoload.inc.php';
 
     $member = new cls\member;
     $data = array();
-    $data = $member->get_credit_by_invoice_id($_SESSION['invoice_id']);
+
+    $data = $member->get_credit_by_invoice_id($_GET['invoice_id']);
     if (count($data) == 0) {
         echo "<meta http-equiv='refresh' content='0;url=index.php'>";
+        exit;
     }
     /*
     Array
@@ -62,7 +67,8 @@ if (!isset($_SESSION['member_id']) || !isset($_SESSION['invoice_id'])) {
                                     ธนาคารไทยพาณิชย์ สาขาอุบลราชธานี ชื่อบัญชี xxxxxxxxx xxxxxxxxx เลขที่บัญชี xxx-x-xxxxx-x
                                 </p>
                                 <h3 class="greenColor">หลังจากโอนเงินแล้วรบกวนแจ้งโอนเงินได้ที่</h3>
-                                <a id="link_confirm" href="#"><h3>http://www.ezteech.com/confirm.php</h3></a>
+
+                                <a id="link_confirm" href="./confirm.php?invoice_id=<?=$_GET['invoice_id'];?>"><h3>http://www.ezteech.com/confirm.php</h3></a>
                                 <p>
                                     โดยกรอก ข้อมูลต่างๆลงไปให้ครบถ้วนเพื่อความสะดวกและรวดเร็วในการยืนยันได้เร็วขึ้น
                                 </p>
@@ -153,16 +159,6 @@ if (!isset($_SESSION['member_id']) || !isset($_SESSION['invoice_id'])) {
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-    $(function() {
-        var $a = $('#link_confirm');
-        var invoice_id = "<?php echo $_SESSION['invoice_id']; ?>";
-        $a.click(function(){
-            event.preventDefault();
-            window.location = "./confirm.php?invoice_id=" + invoice_id;
-        });
-    });
-    </script>
     <?php
 require_once './footer.inc.php';
 ?>
