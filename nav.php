@@ -11,8 +11,8 @@
             </div>
             <div class="navbar-collapse collapse navbar-responsive-collapse">
                 <?php
-//if (isset($_SESSION['member_id'])) {
-?>
+if (isset($_SESSION['member_id'])) {
+    ?>
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-shirtsinbulk"></i> รายการสินค้า <span class="caret"></span></a>
@@ -34,7 +34,7 @@
                         <!--<li><a href="javascript:void(0)"><i class="fa fa-phone"></i> ติดต่อเรา</a></li>-->
                     </ul>
                     <?php
-//}
+}
 ?>
                         <ul class="nav navbar-nav navbar-right">
                             <?php
