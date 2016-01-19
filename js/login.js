@@ -10,9 +10,8 @@ $(function() {
         }).done(function(res) {
             console.log(res);
             var url;
-            if (res == 1) {
+            if (res === '1') {
                 url = 'index.php';
-
                 window.location = url;
             } else {
                 alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
