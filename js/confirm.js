@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-$(function(){
-    var $form = $('form');
-    
-    $form.submit(function(){
-        
-    });
-});
-=======
+
 $(function() {
     var $form = $('form');
 
@@ -39,4 +31,3 @@ $(function() {
 
     });
 });
->>>>>>> master

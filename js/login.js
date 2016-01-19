@@ -12,18 +12,13 @@ $(function() {
             var url;
             if (res == 1) {
                 url = 'index.php';
-<<<<<<< HEAD
-=======
+
                 window.location = url;
->>>>>>> master
             } else {
                 alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
                 history.back();
             }
-<<<<<<< HEAD
-            window.location = url;
-=======
->>>>>>> master
+
         });
     });
 });
