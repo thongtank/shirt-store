@@ -1,16 +1,9 @@
-<<<<<<< HEAD
+
 ftp:
 chet@hitshirts.net
 cc313339
 domain : hitshirts.net
 db  http://ottyhost.com/phpMyAdmin/
 user : hitshirts_user
-=======
-ftp:
-chet@hitshirts.net
-cc313339
-domain : hitshirts.net
-db  http://ottyhost.com/phpMyAdmin/
-user : hitshirts_user
->>>>>>> master
+
 pass : hit313339
