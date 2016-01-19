@@ -15,7 +15,7 @@ class member extends db {
     /** กรณีลงทะเบียนผ่าน facebook account */
     public function register($data = array()) {
         $sql = "SELECT * FROM member WHERE facebook_id = '" . $data['id'] . "'";
-        $result = $this->query($sql, $rows, $num_rows);
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
         if (!$result) {
             return false;
         } else {
@@ -41,7 +41,6 @@ class member extends db {
                     // insert เวลาที่ login
                     $_SESSION['last_login'] = date("Y-m-d H:i:s");
                 }
-
                 return true;
 
             } else {
@@ -59,7 +58,7 @@ class member extends db {
                         '" . $lastname . "',
                         '" . $gender . "',
                         '" . $email . "', 0, NOW());";
-                $result = $this->query($sql, $rows, $num_rows, $last_id);
+                $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
                 if ($result) {
                     $_SESSION['member_id'] = $last_id;
                     $_SESSION['facebook_id'] = $facebook_id;
@@ -78,7 +77,7 @@ class member extends db {
 
     public function update_member($data = array()) {
         $sql = "UPDATE `member` SET `username`='" . $data['username'] . "',`password`='" . $data['password'] . "',`firstname`='" . $data['firstname'] . "',`lastname`='" . $data['lastname'] . "',`gender`='" . $_SESSION['gender'] . "',`email`='" . $data['email'] . "',`tel`='" . $data['tel'] . "',`mobile`='" . $data['mobile'] . "',`last_login`=NOW() WHERE member_id = '" . $_SESSION['member_id'] . "';";
-        $result = $this->query($sql, $rows, $num_rows);
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
         if ($result) {
             $_SESSION['username'] = $data['username'];
             $_SESSION['password'] = $data['password'];
@@ -106,7 +105,7 @@ class member extends db {
                         '" . $data['email'] . "',
                         '" . $data['tel'] . "',
                         '" . $data['mobile'] . "' , 0, NOW());";
-        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
         if ($result) {
             $_SESSION['member_id'] = $last_id;
             $_SESSION['username'] = $data['username'];
@@ -126,7 +125,7 @@ class member extends db {
 
     private function set_last_login_time() {
         $sql = "UPDATE member SET last_login = NOW() WHERE member_id = '" . $this->member_id . "';";
-        $result = $this->query($sql, $rows, $num_rows);
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
         if ($result) {
             return true;
         }
@@ -137,7 +136,7 @@ class member extends db {
     public function get_balance() {
         $sql = "SELECT SUM(credit) AS credit FROM credit WHERE member_id = '" . $this->member_id . "';";
         // echo $sql;
-        $result = $this->query($sql, $rows, $num_rows);
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
         if ($result) {
             $this->credit = $rows[0]['credit'];
             return true;
@@ -146,7 +145,7 @@ class member extends db {
 
     public function get_list_credit() {
         $sql = "SELECT * FROM credit WHERE member_id = '" . $this->member_id . "';";
-        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
         if ($result) {
             return $rows;
         }
@@ -164,7 +163,7 @@ class member extends db {
         $sql = "INSERT INTO `credit`(`invoice_id`, `packet`, `credit`, `free`, `date_added`, `date_expired`, `status`, `member_id`) ";
         $sql .= "VALUES (NULL,'" . $data['packet'] . "'," . $data['credit'] . "," . $data['free'] . ", '" . $date_added . "', '" . $date_expired . "', 'pending', " . $this->member_id . ")";
 
-        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
         if ($result) {
 
             return $last_id;
@@ -178,7 +177,7 @@ class member extends db {
 
     public function get_credit_by_invoice_id($invoice_id) {
         $sql = "SELECT * FROM credit WHERE invoice_id = " . $invoice_id . ";";
-        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
         if ($result) {
             return $rows[0];
         }
@@ -187,7 +186,7 @@ class member extends db {
     public function cancel_credit($invoice_id) {
         $sql = "DELETE FROM `credit` WHERE invoice_id = " . $invoice_id . " AND member_id = " . $this->member_id;
         print $sql;
-        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
         if ($result) {
             return true;
 
@@ -199,7 +198,7 @@ class member extends db {
     //admin
     public function get_credit_by_invoice_id_manager($invoice_id) {
         $sql = "SELECT * FROM credit INNER JOIN member ON credit.member_id = member.member_id WHERE credit.invoice_id = " . $invoice_id . ";";
-        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
         if ($result) {
             return $rows[0];
         }
@@ -207,7 +206,7 @@ class member extends db {
 
     public function get_list_credit_no_confirm() {
         $sql = "SELECT * FROM credit WHERE status = 'transfered';";
-        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
         if ($result) {
             return $rows;
         }
@@ -216,7 +215,7 @@ class member extends db {
     public function update_confirm_credit($data = array()) {
         $add_credit = $data['credit'] + $data['free'];
         $sql = "UPDATE credit SET status = 'confirm',date_confirm=NOW(),manager_id='" . $data['manager_id'] . "' WHERE invoice_id = '" . $data['invoice_id'] . "';";
-        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
         $sql_add_credit = "UPDATE member SET credit_balance = credit_balance +5000 WHERE member_id='" . $data['member_id'] . "'";
         $this->query($sql_add_credit, $rows, $num_rows, $last_id);
         if ($result) {
@@ -226,7 +225,7 @@ class member extends db {
 
     public function admin_login($data = array()) {
         $sql = "SELECT * FROM admin WHERE u_user = '" . $data['user'] . "'  AND u_pass = '" . $data['pass'] . "';";
-        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
         if ($result) {
             // print "num row : " . $num_rows;
             if ($num_rows > 0) {
@@ -254,7 +253,7 @@ class member extends db {
         $sql = "UPDATE credit SET total = " . $data['total'] . ", date_make_confirm = NOW(), status = 'transfered', bank_to = '" . $data['bank_to'] . "', bank_transfer = '" . $data['bank_transfer'] . "', date_transfer = '" . $data['date_transfer'] . "', time_transfer = '" . $data['time_transfer'] . "' ";
         $sql .= "WHERE invoice_id = " . $data['invoice_id'] . " AND member_id = " . $this->member_id . ";";
         // echo $sql;
-        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
         if ($result) {
             return 1;
         } else {
@@ -265,7 +264,7 @@ class member extends db {
     /* LOGIN */
     public function login($data = array()) {
         $sql = "SELECT * FROM member Where username = '" . $data['username'] . "' AND password = '" . $data['password'] . "';";
-        $result = $this->query($sql, $rows, $num_rows);
+        $result = $this->query($sql, $rows, $num_rows, $last_id,$last_id);
         if ($result) {
             // print "num row : " . $num_rows;
             if ($num_rows > 0) {
