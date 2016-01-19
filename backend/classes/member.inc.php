@@ -9,7 +9,9 @@ use config\database as db;
 class member extends db {
 
     public $member_id, $facebook_id, $firstname, $lastname, $gender, $email, $tel, $mobile, $credit;
-
+    /*
+    MEMBER
+     */
     /** กรณีลงทะเบียนผ่าน facebook account */
     public function register($data = array()) {
         $sql = "SELECT * FROM member WHERE facebook_id = '" . $data['id'] . "'";
@@ -41,6 +43,7 @@ class member extends db {
                 }
 
                 return true;
+
             } else {
                 // ยังไม่มีข้อมูลผู้ใช้ในฐานข้อมูล
                 $_SESSION['count_facebook_id'] = 0;
@@ -128,7 +131,9 @@ class member extends db {
             return true;
         }
     }
-
+    /*
+    CREDIT
+     */
     public function get_balance() {
         $sql = "SELECT SUM(credit) AS credit FROM credit WHERE member_id = '" . $this->member_id . "';";
         // echo $sql;
@@ -149,8 +154,9 @@ class member extends db {
 
     public function set_credit($data = array()) {
         /*
-          $sql = "INSERT INTO `credit`(`id`, `packet`, `credit`, `date_added`, `time_added`, `status`, `member_id`)
-          VALUES (NULL,'" . $data['pack'] . "'," . $data['credit'] . ", '" . $date . "','" . $time . "','pending','" . $_SESSION['member_id'] . "')";
+
+        $sql = "INSERT INTO `credit`(`id`, `packet`, `credit`, `date_added`, `time_added`, `status`, `member_id`)
+        VALUES (NULL,'" . $data['pack'] . "'," . $data['credit'] . ", '" . $date . "','" . $time . "','pending','" . $_SESSION['member_id'] . "')";
          */
         $date_added = date('Y-m-d H:i:s');
         $date_expired = date('Y-m-d H:i:s', strtotime('+1 days', strtotime($date_added)));
@@ -160,11 +166,14 @@ class member extends db {
 
         $result = $this->query($sql, $rows, $num_rows, $last_id);
         if ($result) {
-            $_SESSION['invoice_id'] = $last_id;
-            return true;
+
+            return $last_id;
+            // $_SESSION['invoice_id'] = $last_id;
+            // return true;
         } else {
-            return false;
+            return 0;
         }
+
     }
 
     public function get_credit_by_invoice_id($invoice_id) {
@@ -174,6 +183,7 @@ class member extends db {
             return $rows[0];
         }
     }
+
 
     public function login($data = array()) {
         $sql = "SELECT * FROM member Where username = '" . $data['username'] . "' AND password = '" . $data['password'] . "';";
@@ -193,10 +203,21 @@ class member extends db {
             } else {
                 return false;
             }
+        }
+    }
+
+    public function cancel_credit($invoice_id) {
+        $sql = "DELETE FROM `credit` WHERE invoice_id = " . $invoice_id . " AND member_id = " . $this->member_id;
+        print $sql;
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return true;
+
         } else {
             return false;
         }
     }
+
 
     //admin
     public function get_credit_by_invoice_id_manager($invoice_id) {
@@ -236,6 +257,50 @@ class member extends db {
                     $_SESSION[$key] = $value;
                 }
                 return true;
+            }
+        }
+    }
+
+    public function transfer_credit($data = array()) {
+        /*
+        Array
+        (
+        [packet] => Credit Packet 500
+        [bank_to] => 2
+        [total] => 12222
+        [hidden-credit] => 500
+        [bank_transfer] => SCB
+        [date_transfer] => 2016-12-31
+        [time_transfer] => 00:59
+        )
+         */
+        $sql = "UPDATE credit SET total = " . $data['total'] . ", date_make_confirm = NOW(), status = 'transfered', bank_to = '" . $data['bank_to'] . "', bank_transfer = '" . $data['bank_transfer'] . "', date_transfer = '" . $data['date_transfer'] . "', time_transfer = '" . $data['time_transfer'] . "' ";
+        $sql .= "WHERE invoice_id = " . $data['invoice_id'] . " AND member_id = " . $this->member_id . ";";
+        // echo $sql;
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    /* LOGIN */
+    public function login($data = array()) {
+        $sql = "SELECT * FROM member Where username = '" . $data['username'] . "' AND password = '" . $data['password'] . "';";
+        $result = $this->query($sql, $rows, $num_rows);
+        if ($result) {
+            // print "num row : " . $num_rows;
+            if ($num_rows > 0) {
+                $this->member_id = $rows[0]['member_id'];
+                if ($this->set_last_login_time()) {
+                    foreach ($rows[0] as $key => $value) {
+                        $_SESSION[$key] = $value;
+                    }
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
@@ -243,5 +308,4 @@ class member extends db {
             return false;
         }
     }
-
 }
