@@ -49,12 +49,15 @@ session_start();
                     console.log(res);
                     var url;
                     if (res === '1') {
-                        url = 'index.php';
+                        url = 'home.php';
+                        window.location = url;
                     } else {
                         alert('ชื่อหรือรหัสผ่านไม่ถูกต้อง!!');
-                        history.back();
+                        $("#password").val("");
+                        $("#password").focus();
+                        //history.back();
                     }
-                    window.location = url;
+                    
                 });
             });
         </script>
