@@ -1,4 +1,3 @@
-
 <?php require_once 'header.inc.php';
 if (!isset($_SESSION['member_id'])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'>";
@@ -118,15 +117,26 @@ if (count($data) > 0) {
          */
         ?>
                         <tr>
-                            <td scope=row><?=$i;?></td>
-                            <td><?=$v['invoice_id'];?></td>
-                            <td><a href="add-credit-detail.php?invoice_id=<?php echo $v['invoice_id']; ?>"><?=$v['packet'];?></a></td>
-                            <td><?=number_format($v['credit']);?> บาท</td>
-                            <td><?=$v['date_added'];?></td>
+                            <td scope=row>
+                                <?=$i;?>
+                            </td>
                             <td>
-                            <?php
+                                <?=$v['invoice_id'];?>
+                            </td>
+                            <td>
+                                <a href="add-credit-detail.php?invoice_id=<?php echo $v['invoice_id']; ?>">
+                                    <?=$v['packet'];?>
+                                </a>
+                            </td>
+                            <td>
+                                <?=number_format($v['credit']);?> บาท</td>
+                            <td>
+                                <?=$v['date_added'];?>
+                            </td>
+                            <td>
+                                <?php
 if ($v['status'] == 'confirm') {
-            echo $data['date_confirm'];
+            echo $v['date_confirm'];
         } else {
             echo '-';
         }
@@ -136,10 +146,13 @@ if ($v['status'] == 'confirm') {
                                 <?php
 $status = "";
         $color = "";
+        $cancel_link = "";
         if ($v['status'] == 'pending') {
             $status = "รอการยืนยัน";
             $color = "danger";
-        } elseif ($v['status'] == 'transfer') {
+            $cancel_url = 'cancel-credit.php?invoice_id=' . base64_encode($v['invoice_id']);
+            $cancel_link = '<a href=' . $cancel_url . ' onclick="return confirm(\'ยืนยันการลบข้อมูล ?\');"><label class="label label-danger"><i class="fa fa-close"></i> ยกเลิกรายการ</label></a>';
+        } elseif ($v['status'] == 'transfered') {
             $status = "แจ้งการโอนเงินแล้ว";
             $color = "info";
         } else {
@@ -147,10 +160,11 @@ $status = "";
             $color = "success";
         }
 
-        $cancel_url = 'cancel-credit.php?invoice_id=' . base64_encode($v['invoice_id']);
         ?>
-                                <label class="label label-<?=$color;?>"><?=$status;?></label>
-                                <a href="<?=$cancel_url;?>" onclick="return confirm('ยืนยันการลบข้อมูล ?');"><label class="label label-danger"><i class="fa fa-close"></i> ยกเลิกรายการ</label></a>
+                                    <label class="label label-<?=$color;?>">
+                                        <?=$status;?>
+                                    </label>
+                                    <?=$cancel_link;?>
                             </td>
                         </tr>
                         <?php

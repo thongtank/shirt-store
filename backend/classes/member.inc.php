@@ -134,7 +134,7 @@ class member extends db {
     CREDIT
      */
     public function get_balance() {
-        $sql = "SELECT SUM(credit) AS credit FROM credit WHERE member_id = '" . $this->member_id . "';";
+        $sql = "SELECT SUM(credit) AS credit FROM credit WHERE member_id = '" . $this->member_id . "' and status = 'confirm';";
         // echo $sql;
         $result = $this->query($sql, $rows, $num_rows, $last_id);
         if ($result) {
@@ -264,7 +264,7 @@ class member extends db {
     /* LOGIN */
     public function login($data = array()) {
         $sql = "SELECT * FROM member Where username = '" . $data['username'] . "' AND password = '" . $data['password'] . "';";
-        $result = $this->query($sql, $rows, $num_rows, $last_id,$last_id);
+        $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
         if ($result) {
             // print "num row : " . $num_rows;
             if ($num_rows > 0) {

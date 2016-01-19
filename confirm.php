@@ -2,7 +2,10 @@
 require_once 'header.inc.php';
 if (!isset($_SESSION['member_id'])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'>";
-
+    exit;
+}
+if (!isset($_GET['invoice_id'])) {
+    echo "<meta http-equiv='refresh' content='0;url=./frm-add-credit.php'>";
     exit;
 }
 $invoice_id = $_GET['invoice_id'];
@@ -34,7 +37,7 @@ Array
         <h2 class="title"><i class="fa fa-money"></i> แจ้งการชำระเงิน</h2>
         <h2 class="greenColor">วิธีการแจ้งชำระเงิน</h2> 1. ค้นหาเลข Invoice ของท่าน โดยป้อนที่ช่อง Invoice หาก เลข Invoice ถูกต้อง ระบบจะแสดงข้อมูลเลขที่ใบ Invoice ให้อัตโนมัติ
         <br/> 2. ป้อนยอดเงิน เลือกธนาคารที่โอน ธนาคารต้นทาง สาขา(ถ้ามี)
-        <br/> หากไม่สามารถแจ้งได้สามารถติดต่อได้ที่ xxxxxx@xxxxxxxx.com
+        <br/> หากไม่สามารถแจ้งได้สามารถติดต่อได้ที่ admin@ezteesh.com
         <form action="#" method="POST" class="form-horizontal form-register">
             <div class="col-md-6">
                 <div class="form-group">
@@ -52,17 +55,18 @@ Array
                 <div class="form-group">
                     <label for="" class="control-label col-md-3">ธนาคารที่โอน *</label>
                     <div class="col-md-9">
-                        <input type="radio" id="bank_to" name="bank_to" value="1" required> ธนาคาร 1
+                        <input type="radio" id="bank_to" name="bank_to" value="กสิกรไทย" required>
+                        <span class="greenColor">ธ.กสิกรไทย สาขาถนนชยางกูร
+เลขบัญชี : 2602605585
+ชื่อบัญชี : ร้านบิสเน็ตโดยนายอดุลย์เดช วงศ์งาม</span>
                         <br/>
-                        <span class="greenColor">ชื่อบัญชี xxxxxxxx xxxxxxxx เลขที่บัญชี xxx-x-xxxxx-x</span>
+                        <input type="radio" id="bank_to" name="bank_to" value="กรุงเทพ" required>
+                        <span class="greenColor">ธ.กรุงเทพ
+เลขบัญชี : 6730186621
+ชื่อบัญชี : นายอดุลย์เดช วงศ์งาม</span>
                         <br/>
-                        <input type="radio" id="bank_to" name="bank_to" value="2" required> ธนาคาร 2
-                        <br/>
-                        <span class="greenColor">ชื่อบัญชี xxxxxxxx xxxxxxxx เลขที่บัญชี xxx-x-xxxxx-x</span>
-                        <br/>
-                        <input type="radio" id="bank_to" name="bank_to" value="3" required> ธนาคาร 3
-                        <br/>
-                        <span class="greenColor">ชื่อบัญชี xxxxxxxx xxxxxxxx เลขที่บัญชี xxx-x-xxxxx-x</span>
+                        <input type="radio" id="bank_to" name="bank_to" value="ไทยพานิชย์" required>
+                        <span class="greenColor">ธนาคารไทยพานิชย์</span>
                         <br/>
                     </div>
                 </div>

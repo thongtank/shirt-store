@@ -27,7 +27,7 @@ if (isset($_SESSION['member_id'])) {
                             <ul class="dropdown-menu">
                                 <li><a href="frm-add-credit.php"><i class="fa fa-plus"></i> เติมเครดิต</a></li>
                                 <li><a href="list-buy-credit.php"><i class="fa fa-list"></i> ข้อมูลการซื้อเครดิต</a></li>
-                                <li><a href="list-debit.php"><i class="fa fa-list"></i> ข้อมูลการใช้งานเครดิต</a></li>
+                                <!-- <li><a href="list-debit.php"><i class="fa fa-list"></i> ข้อมูลการใช้งานเครดิต</a></li> -->
                                 <li><a href="confirm.php"><i class="fa fa-plus"></i> แจ้งการชำระเงิน</a></li>
                             </ul>
                         </li>
@@ -41,10 +41,10 @@ if (isset($_SESSION['member_id'])) {
 if (isset($_SESSION['member_id'])) {
     $member = new cls\member;
     $member->member_id = $_SESSION['member_id'];
-    // $member->get_balance();
-    // $my_credit = $member->credit;
+    $member->get_balance();
+    $my_credit = $member->credit;
     ?>
-                                <li><a><i class="fa fa-bitcoin"></i> เครดิต : <?=number_format($_SESSION['credit_balance']);?></a></li>
+                                <li><a><i class="fa fa-bitcoin"></i> เครดิต : <?=number_format($my_credit);?></a></li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <?=$_SESSION['firstname'] . ' ' . $_SESSION['lastname'];?><span class="caret"></span></a>
                                     <ul class="dropdown-menu">

@@ -64,16 +64,21 @@ if (!isset($_SESSION['member_id']) || !isset($_GET['invoice_id'])) {
                                 <h2 class="greenColor"><?=$status;?></h2>
                                 <h3>สามารถโอนเงินเข้าบัญชีได้ที่</h3>
                                 <p>
-                                    ธนาคารไทยพาณิชย์ สาขาอุบลราชธานี ชื่อบัญชี xxxxxxxxx xxxxxxxxx เลขที่บัญชี xxx-x-xxxxx-x
+                                    + ธ.กสิกรไทย สาขาถนนชยางกูร เลขบัญชี : 2602605585 ชื่อบัญชี : ร้านบิสเน็ตโดยนายอดุลย์เดช วงศ์งาม
+                                </p>
+                                <p>
+                                    + ธ.กรุงเทพ เลขบัญชี : 6730186621 ชื่อบัญชี : นายอดุลย์เดช วงศ์งาม
+                                </p>
+                                <p>
+                                    + ธ.ไทยพานิชย์
                                 </p>
                                 <h3 class="greenColor">หลังจากโอนเงินแล้วรบกวนแจ้งโอนเงินได้ที่</h3>
-
                                 <a id="link_confirm" href="./confirm.php?invoice_id=<?=$_GET['invoice_id'];?>"><h3>http://www.ezteech.com/confirm.php</h3></a>
                                 <p>
                                     โดยกรอก ข้อมูลต่างๆลงไปให้ครบถ้วนเพื่อความสะดวกและรวดเร็วในการยืนยันได้เร็วขึ้น
                                 </p>
                                 <p>Reference Number:
-                                    <?=sprintf('%05d', $_SESSION['invoice_id']);?>
+                                    <?=sprintf('%05d', $_GET['invoice_id']);?>
                                 </p>
                             </td>
                         </tr>
@@ -108,7 +113,7 @@ if (!isset($_SESSION['member_id']) || !isset($_GET['invoice_id'])) {
                     </tbody>
                 </table>
             </div>
-            <h3 class="greenColor">#Invoice เลขที่ : <?=sprintf('%05d', $_SESSION['invoice_id']);?></h3>
+            <h3 class="greenColor">#Invoice เลขที่ : <?=sprintf('%05d', $_GET['invoice_id']);?></h3>
             <p>วันที่:
                 <?php echo $data['date_added']; ?>
             </p>
