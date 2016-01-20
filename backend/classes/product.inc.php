@@ -4,7 +4,7 @@ namespace classes;
 use config\database as db;
 
 class product extends db {
-    public $member_id, $path_dir, $extension, $file_name, $last_id;
+    public $member_id, $product_id, $path_dir, $extension, $file_name, $last_id;
     public function set_product($data = array(), $mockup_name = "") {
         $sql = "INSERT INTO `product`(`product_name`, `product_cotton`, `product_type`, `product_colour`, `product_detail`, `date_added`, `member_id`, `confirm_status`, `product_mockup`) ";
         $sql .= "VALUES ('" . $data['product_name'] . "','" . $data['p_cotton'] . "','" . $data['p_type'] . "','" . $data['p_color'] . "','" . $data['p_detail'] . "',NOW()," . $this->member_id . ",'pending', '" . $mockup_name . "');";
@@ -33,6 +33,16 @@ class product extends db {
         $result = $this->query($sql, $rows, $num_rows, $last_id);
         if ($result) {
             return $rows;
+        } else {
+            return false;
+        }
+    }
+
+    public function get_product_by_product_id() {
+        $sql = "SELECT * FROM `product` WHERE `product_id` = " . $this->product_id . " AND member_id = " . $this->member_id . " LIMIT 1";
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return $rows[0];
         } else {
             return false;
         }

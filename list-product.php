@@ -31,27 +31,28 @@ $data = $product->get_product_by_member_id();
         </div>
         <div class="clearfix"></div>
         <div id="div-gridView">
-        <?php
+            <?php
 if (count($data) > 0) {
     foreach ($data as $k => $v) {
         ?>
-            <div class="col-md-3">
-                <div class="product-card">
-                    <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><img src="img/imgPlusMockup.jpg" alt="" /></a>
-                    <div class="col-md-12 detail">
-                        <h3 class="col-md-12"><?=$v['product_name'];?></h3>
-                        <div class="col-md-4 col-sm-4 price"><?=$v['confirm_price'];?> เครดิต</div>
-                        <div class="col-md-8 col-sm-8 buy">
-                            <span class="greenColor"><i class="fa fa-shopping-cart"></i> ซื้อแล้ว 50 ครั้ง</span>
+                <div class="col-md-3">
+                    <div class="product-card">
+                        <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><img src="uploads/member_<?=$_SESSION['member_id'] . DS . $v['product_mockup'];?>" alt="" /></a>
+                        <div class="col-md-12 detail">
+                            <h3 class="col-md-12"><a href="./product-detail.php?product_id=<?=$v['product_id'];?>" title="รายละเอียดสินค้า"><?=$v['product_name'];?></a></h3>
+                            <div class="col-md-4 col-sm-4 price">
+                                <?=$v['confirm_price'];?> เครดิต</div>
+                            <div class="col-md-8 col-sm-8 buy">
+                                <span class="greenColor"><i class="fa fa-shopping-cart"></i> ซื้อแล้ว <?="...";?> ครั้ง</span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <button type="submit" class="btn btn-raised btn-danger" id="" name="" value="แก้ไขข้อมูล"><i class="fa fa-trash"></i> ลบ</button>
+                            <button type="submit" class="btn btn-raised btn-primary pull-right" id="" name="" value="สั่งซื้อ"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button>
                         </div>
                         <div class="clearfix"></div>
-                        <button type="submit" class="btn btn-raised btn-warning" id="" name="" value="แก้ไขข้อมูล"><i class="fa fa-edit"></i> แก้ไขข้อมูล</button>
-                        <button type="submit" class="btn btn-raised btn-primary pull-right" id="" name="" value="สั่งซื้อ"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button>
                     </div>
-                    <div class="clearfix"></div>
                 </div>
-            </div>
-            <?php }
+                <?php }
 }
 ?>
         </div>
@@ -69,39 +70,27 @@ if (count($data) > 0) {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td scope=row>1</td>
-                        <td><img class="img-rounded" src="img/imgPlusMockup.jpg" width="200" data-toggle="modal" data-target=".bs-example-modal-lg" alt="" /></td>
-                        <td>เสื้อลาย DOTA 2</td>
-                        <td style="text-align: center;">250</td>
-                        <td class="greenColor">ซื้อแล้ว 50 ครั้ง</td>
-                        <td>
-                            <button type="submit" class="btn btn-raised btn-warning" id="" name="" value="แก้ไขข้อมูล"><i class="fa fa-edit"></i> แก้ไขข้อมูล</button>
-                            <button type="submit" class="btn btn-raised btn-primary" id="" name="" value="บันทึกข้อมูล"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope=row>2</td>
-                        <td><img class="img-rounded" src="img/imgPlusMockup.jpg" width="200" data-toggle="modal" data-target=".bs-example-modal-lg" alt="" /></td>
-                        <td>เสื้อลาย DOTA 2</td>
-                        <td style="text-align: center;">250</td>
-                        <td class="greenColor">ซื้อแล้ว 50 ครั้ง</td>
-                        <td>
-                            <button type="submit" class="btn btn-raised btn-warning" id="" name="" value="แก้ไขข้อมูล"><i class="fa fa-edit"></i> แก้ไขข้อมูล</button>
-                            <button type="submit" class="btn btn-raised btn-primary" id="" name="" value="บันทึกข้อมูล"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope=row>3</td>
-                        <td><img class="img-rounded" src="img/imgPlusMockup.jpg" width="200" data-toggle="modal" data-target=".bs-example-modal-lg" alt="" /></td>
-                        <td>เสื้อลาย DOTA 2</td>
-                        <td style="text-align: center;">250</td>
-                        <td class="greenColor">ซื้อแล้ว 50 ครั้ง</td>
-                        <td>
-                            <button type="submit" class="btn btn-raised btn-warning" id="" name="" value="แก้ไขข้อมูล"><i class="fa fa-edit"></i> แก้ไขข้อมูล</button>
-                            <button type="submit" class="btn btn-raised btn-primary" id="" name="" value="บันทึกข้อมูล"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button>
-                        </td>
-                    </tr>
+                    <?php
+if (count($data) > 0) {
+    $i = 1;
+    foreach ($data as $k => $v) {
+        ?>
+                        <tr>
+                            <td scope=row><?=$i;?></td>
+                            <td><img class="img-rounded" src="uploads/member_<?=$_SESSION['member_id'] . DS . $v['product_mockup'];?>" width="200" data-toggle="modal" data-target=".bs-example-modal-lg" alt="" /></td>
+                            <td><a href="./product-detail.php?product_id=<?=$v['product_id'];?>" title="รายละเอียดสินค้า"><?=$v['product_name'];?></a></td>
+                            <td style="text-align: center;"><?=$v['confirm_price'];?></td>
+                            <td class="greenColor">ซื้อแล้ว <?="...";?> ครั้ง</td>
+                            <td>
+                                <button type="submit" class="btn btn-raised btn-danger" id="" name="" value="แก้ไขข้อมูล"><i class="fa fa-trash"></i> ลบ</button>
+                                <button type="submit" class="btn btn-raised btn-primary" id="" name="" value="บันทึกข้อมูล"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button>
+                            </td>
+                        </tr>
+                        <?php
+$i++;
+    }
+}
+?>
                 </tbody>
             </table>
         </div>
