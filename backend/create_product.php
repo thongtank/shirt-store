@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_POST) || !isset($_SESSION['member_id'])) {
+if (!isset($_POST) || !isset($_SESSION['member_id']) || !isset($_FILES)) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'>";
     exit;
 }
@@ -12,89 +12,42 @@ $product = new cls\product;
 $product->member_id = $_SESSION['member_id'];
 
 /* Mockup */
+$success = 1;
 $mockup = $product->upload_mockup($_FILES['fileMockUp']);
 if ($mockup === true) {
-    // if ($product->set_product($_POST)) {
-    echo 'done';
-    // }
+    // Insert data into database
+    if ($product->set_product($_POST, $product->file_name)) {
+        $product_file_number = 1; // หมายเลขฟิลด์ในฐานข้อมูล 1-6
+        for ($i = 1; $i <= 6; $i++) {
+            // ตรวจสอบว่าช่อง upload file ตัวไหนที่ไม่มีรูปภาพก็ให้ข้ามไปช่องต่อไป
+            if (!empty($_FILES['file' . $i]['name'])) {
+                $files = $product->upload_files($_FILES['file' . $i], $i);
+                if ($files !== true) {
+                    echo 'File : ' . $i . ' error === ' . $files;
+                    $success = 0;
+                } else {
+                    if ($product->update_file_product($product_file_number)) {
+                        $product_file_number++;
+                    } else {
+                        echo 'Update product name : ' . $this->file_name . ' incorrect <BR>';
+                        $success = 0;
+                    }
+                }
+            }
+        }
+    } else {
+        echo 'insert failed';
+        $success = 0;
+    }
 } else {
     echo $mockup;
+    $success = 0;
 }
 /* Mockup */
 
-/*
-Array
-(
-[product_name] => a
-[p_cotton] => th
-[p_type] => normal_male
-[p_color] => gray
-[p_detail] => sdfasdfasdfasf
-)
-Array
-(
-[fileMockUp] => Array
-(
-[name] => 1511396_660035520735190_2186428283746288367_n.jpg
-[type] => image/jpeg
-[tmp_name] => /Applications/MAMP/tmp/php/php7vhaeH
-[error] => 0
-[size] => 53707
-)
-
-[file1] => Array
-(
-[name] =>
-[type] =>
-[tmp_name] =>
-[error] => 4
-[size] => 0
-)
-
-[file3] => Array
-(
-[name] =>
-[type] =>
-[tmp_name] =>
-[error] => 4
-[size] => 0
-)
-
-[file5] => Array
-(
-[name] =>
-[type] =>
-[tmp_name] =>
-[error] => 4
-[size] => 0
-)
-
-[file2] => Array
-(
-[name] =>
-[type] =>
-[tmp_name] =>
-[error] => 4
-[size] => 0
-)
-
-[file4] => Array
-(
-[name] =>
-[type] =>
-[tmp_name] =>
-[error] => 4
-[size] => 0
-)
-
-[file6] => Array
-(
-[name] =>
-[type] =>
-[tmp_name] =>
-[error] => 4
-[size] => 0
-)
-
-)
- */
+if ($success) {
+    echo "<meta http-equiv='refresh' content='0;url=../create_product-success.php'>";
+} else {
+    echo "<meta http-equiv='refresh' content='0;url=../create_product-failed.php'>";
+}
+exit;

@@ -120,7 +120,7 @@ if (!isset($_SESSION['member_id'])) {
             <div class="col-md-12">
                 <div class="form-group">
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-raised btn-primary pull-right" id="" name="" value="บันทึกข้อมูล"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
+                        <button type="submit" onclick="return confirm('ยืนยันการเพิ่มข้อมูลสินค้า ?');" class="btn btn-raised btn-primary pull-right" id="" name="" value="บันทึกข้อมูล"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
                     </div>
                 </div>
             </div>

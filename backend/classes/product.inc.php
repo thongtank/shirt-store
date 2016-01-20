@@ -4,14 +4,35 @@ namespace classes;
 use config\database as db;
 
 class product extends db {
-    public $member_id, $path_dir, $extension, $file_name;
-    public function set_product($data = array()) {
-        $sql = "INSERT INTO `product`(`product_name`, `product_cotton`, `product_type`, `product_colour`, `product_detail`, `date_added`, `member_id`, `confirm_status`) ";
-        $sql .= "VALUES ('" . $data['product_name'] . "','" . $data['p_cotton'] . "','" . $data['p_type'] . "','" . $data['p_color'] . "','" . $data['p_detail'] . "',NOW()," . $this->member_id . ",'pending');";
+    public $member_id, $path_dir, $extension, $file_name, $last_id;
+    public function set_product($data = array(), $mockup_name = "") {
+        $sql = "INSERT INTO `product`(`product_name`, `product_cotton`, `product_type`, `product_colour`, `product_detail`, `date_added`, `member_id`, `confirm_status`, `product_mockup`) ";
+        $sql .= "VALUES ('" . $data['product_name'] . "','" . $data['p_cotton'] . "','" . $data['p_type'] . "','" . $data['p_color'] . "','" . $data['p_detail'] . "',NOW()," . $this->member_id . ",'pending', '" . $mockup_name . "');";
         // echo $sql;
         $result = $this->query($sql, $rows, $num_rows, $last_id);
         if ($result) {
+            $this->last_id = $last_id;
             return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function update_file_product($product_file) {
+        $sql = "UPDATE product SET product_file" . $product_file . " = '" . $this->file_name . "' WHERE product_id = " . $this->last_id . ";";
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function get_product_by_member_id() {
+        $sql = "SELECT * FROM product WHERE member_id = " . $this->member_id;
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return $rows;
         } else {
             return false;
         }
@@ -26,9 +47,9 @@ class product extends db {
                 // ตรวจสอบชื่อไฟล์
                 if ($this->validate_file_name($file_name)) {
                     if (move_uploaded_file($data['tmp_name'], $this->path_dir . DS . $this->file_name)) {
+                        // echo $data['tmp_name'] . ' === ' . $this->path_dir . DS . $this->file_name;
                         return true;
                     } else {
-                        // echo $data['tmp_name'] . ' === ' . $this->path_dir . DS . $this->file_name;
                         return "Sorry, there was an error uploading your file.";
                     }
                 } else {
@@ -39,6 +60,25 @@ class product extends db {
             }
         } else {
             return "Failed for create directory";
+        }
+    }
+
+    public function upload_files($data = array(), $i) {
+        // ตรวจสอบนามสกุล
+        if ($this->validate_ext($data['name'])) {
+            $file_name = $this->member_id . '_' . time() . '_detail_' . $i . '.' . $this->extension;
+            // ตรวจสอบชื่อไฟล์
+            if ($this->validate_file_name($file_name)) {
+                if (move_uploaded_file($data['tmp_name'], $this->path_dir . DS . $this->file_name)) {
+                    return true;
+                } else {
+                    return "Sorry, there was an error uploading your file.";
+                }
+            } else {
+                return "Sorry, file already exists.";
+            }
+        } else {
+            return "Sorry, only JPG, JPEG, PNG & GIF files are allowed";
         }
     }
 
@@ -61,7 +101,7 @@ class product extends db {
 
     private function validate_file_name($file_name) {
         // ไฟล์ซ้ำหรือไม่
-        if (file_exists($target_file)) {
+        if (file_exists($this->path_dir . DS . $file_name)) {
             return false;
         }
         $this->file_name = $file_name;
