@@ -57,19 +57,19 @@ if ($data === false) {
             </div>
 
             <div class="col-md-3">
-                <?php if ($data['product_file1'] != '') {?>
+                <?php if ($data['product_file2'] != '') {?>
                 <img src="uploads/member_<?=$_SESSION['member_id'] . DS . $data['product_file2'];?>" class="img-rounded" style="width: 100%;" alt="" />
                 <?php }
 ?>
             </div>
             <div class="col-md-3">
-            <?php if ($data['product_file1'] != '') {?>
+            <?php if ($data['product_file3'] != '') {?>
                 <img src="uploads/member_<?=$_SESSION['member_id'] . DS . $data['product_file3'];?>" class="img-rounded" style="width: 100%;" alt="" />
                 <?php }
 ?>
             </div>
             <div class="col-md-3">
-            <?php if ($data['product_file1'] != '') {?>
+            <?php if ($data['product_file4'] != '') {?>
                 <img src="uploads/member_<?=$_SESSION['member_id'] . DS . $data['product_file4'];?>" class="img-rounded" style="width: 100%;" alt="" />
                 <?php }
 ?>
@@ -130,7 +130,7 @@ default:
                 <label for="" class="control-label col-md-3 textRight"><strong>สั่งแล้ว :</strong></label>
                 <div class="col-md-9 greenColor">... ครั้ง</div>
             </div>
-            <a class="btn btn-raised btn-danger" href="#"><i class="fa fa-trash"></i> ลบข้อมูล</a>
+            <a class="btn btn-raised btn-danger" href="delete"><i class="fa fa-trash"></i> ลบข้อมูล</a>
             <a class="btn btn-raised btn-primary" href="#"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</a>
         </div>
     </div>
