@@ -75,7 +75,7 @@ Array
                 <div class="form-group">
                     <label for="" class="control-label col-md-3">ยอดโอน *</label>
                     <div class="col-md-9">
-                        <input type="number" class="form-control" id="total" name="total" value="" required>
+                        <input type="text" pattern="[0-9.]+" class="form-control" id="total" name="total" value="" required>
                         <input type="hidden" name="hidden-credit" id="hidden-credit" value="<?=$data['credit'];?>">
                     </div>
                 </div>

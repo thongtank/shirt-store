@@ -4,7 +4,7 @@ if (!isset($_SESSION['member_id'])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'>";
     exit;
 }
-require_once 'backend/config/autoload.inc.php';
+// require_once 'backend/config/autoload.inc.php';
 use classes as cls;
 $product = new cls\product;
 $product->member_id = $_SESSION['member_id'];
@@ -46,7 +46,7 @@ if (count($data) > 0) {
                                 <span class="greenColor"><i class="fa fa-shopping-cart"></i> ซื้อแล้ว <?="...";?> ครั้ง</span>
                             </div>
                             <div class="clearfix"></div>
-                            <button type="submit" class="btn btn-raised btn-danger" id="" name="" value="แก้ไขข้อมูล"><i class="fa fa-trash"></i> ลบ</button>
+                            <a onclick="return confirm('คุณต้องการลบสินค้ารายการนี้หรือไม่ ?');" class="btn btn-raised btn-danger" href="delete-product.php?product_id=<?=base64_encode($v['product_id']);?>"><i class="fa fa-trash"></i> ลบ</a>
                             <button type="submit" class="btn btn-raised btn-primary pull-right" id="" name="" value="สั่งซื้อ"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button>
                         </div>
                         <div class="clearfix"></div>
@@ -82,7 +82,7 @@ if (count($data) > 0) {
                             <td style="text-align: center;"><?=$v['confirm_price'];?></td>
                             <td class="greenColor">ซื้อแล้ว <?="...";?> ครั้ง</td>
                             <td>
-                                <button type="submit" class="btn btn-raised btn-danger" id="" name="" value="แก้ไขข้อมูล"><i class="fa fa-trash"></i> ลบ</button>
+                                <a onclick="return confirm('คุณต้องการลบสินค้ารายการนี้หรือไม่ ?');" class="btn btn-raised btn-danger" href="delete-product.php?product_id=<?=base64_encode($v['product_id']);?>"><i class="fa fa-trash"></i> ลบ</a>
                                 <button type="submit" class="btn btn-raised btn-primary" id="" name="" value="บันทึกข้อมูล"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button>
                             </td>
                         </tr>

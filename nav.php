@@ -41,8 +41,9 @@ if (isset($_SESSION['member_id'])) {
 if (isset($_SESSION['member_id'])) {
     $member = new cls\member;
     $member->member_id = $_SESSION['member_id'];
-    $member->get_balance();
-    $my_credit = $member->credit;
+    // $member->get_balance();
+    // $my_credit = $member->credit;
+    $my_credit = $_SESSION['credit_balance'];
     ?>
                                 <li><a><i class="fa fa-bitcoin"></i> เครดิต : <?=number_format($my_credit);?></a></li>
                                 <li class="dropdown">

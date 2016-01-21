@@ -4,7 +4,7 @@ if (!isset($_SESSION['member_id'])) {
     exit;
 
 }
-include_once 'backend/config/autoload.inc.php';
+// include_once 'backend/config/autoload.inc.php';
 use classes as cls;
 $member = new cls\member;
 ?>
@@ -151,7 +151,7 @@ $status = "";
             $status = "รอการยืนยัน";
             $color = "danger";
             $cancel_url = 'cancel-credit.php?invoice_id=' . base64_encode($v['invoice_id']);
-            $cancel_link = '<a href=' . $cancel_url . ' onclick="return confirm(\'ยืนยันการลบข้อมูล ?\');"><label class="label label-danger"><i class="fa fa-close"></i> ยกเลิกรายการ</label></a>';
+            $cancel_link = '&nbsp;<a href=' . $cancel_url . ' onclick="return confirm(\'ยืนยันการลบข้อมูล ?\');"><label class="label label-danger"><i class="fa fa-close"></i> ยกเลิกรายการ</label></a>';
         } elseif ($v['status'] == 'transfered') {
             $status = "แจ้งการโอนเงินแล้ว";
             $color = "info";

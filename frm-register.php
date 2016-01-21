@@ -1,10 +1,7 @@
 <?php
-require_once 'header.inc.php';
-
 use classes as cls;
-
+require_once 'header.inc.php';
 $member = new cls\member;
-// print_r($_SESSION);
 ?>
 <div class="clearfix"></div>
 <div class="content">

@@ -1,14 +1,11 @@
 <?php
 require_once 'header.inc.php';
 use classes as cls;
-
 if (!isset($_SESSION['member_id']) || !isset($_GET['invoice_id'])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'>";
     exit;
 
 } else {
-    include_once 'backend/config/autoload.inc.php';
-
     $member = new cls\member;
     $data = array();
 

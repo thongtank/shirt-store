@@ -8,7 +8,7 @@ $(function() {
             username: $username.val(),
             password: $password.val()
         }).done(function(res) {
-            console.log(res);
+            // console.log(res);
             var url;
             if (res === '1') {
                 url = 'index.php';

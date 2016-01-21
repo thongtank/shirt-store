@@ -4,7 +4,7 @@ if (!isset($_SESSION['member_id']) || !isset($_GET['product_id'])) {
     echo "<meta http-equiv='refresh' content='0;url=list-product.php'>";
     exit;
 }
-require_once 'backend/config/autoload.inc.php';
+// require_once 'backend/config/autoload.inc.php';
 use classes as cls;
 
 $product = new cls\product;
@@ -87,7 +87,7 @@ if ($data === false) {
                     <?php
 if ($data['confirm_status'] == 'confirm') {
     ?>
-                    <strong>250 Credit</strong>
+                    <strong><?=$data['confirm_price'];?> Credit</strong>
                     <?php
 } else {
     echo "<strong><font color=red>รอการยืนยัน</font></strong>";
@@ -130,7 +130,7 @@ default:
                 <label for="" class="control-label col-md-3 textRight"><strong>สั่งแล้ว :</strong></label>
                 <div class="col-md-9 greenColor">... ครั้ง</div>
             </div>
-            <a class="btn btn-raised btn-danger" href="delete"><i class="fa fa-trash"></i> ลบข้อมูล</a>
+            <a onclick="return confirm('คุณต้องการลบสินค้ารายการนี้หรือไม่ ?');" class="btn btn-raised btn-danger" href="delete-product.php?product_id=<?=base64_encode($data['product_id']);?>"><i class="fa fa-trash"></i> ลบข้อมูล</a>
             <a class="btn btn-raised btn-primary" href="#"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</a>
         </div>
     </div>

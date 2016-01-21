@@ -9,6 +9,7 @@ if (!isset($_GET['invoice_id'])) {
     echo "<meta http-equiv='refresh' content='0;url=frm-add-credit.php'>";
     exit;
 }
+require_once 'backend/config/autoload.inc.php';
 use classes as cls;
 $member = new cls\member;
 
@@ -16,4 +17,5 @@ $invoice_id = base64_decode($_GET['invoice_id']); // Convert invoice_id from bas
 $member->member_id = $_SESSION['member_id'];
 if ($member->cancel_credit($invoice_id)) {
     echo "<meta http-equiv='refresh' content='0;url=frm-add-credit.php'>";
+    exit;
 }

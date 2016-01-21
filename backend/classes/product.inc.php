@@ -48,6 +48,45 @@ class product extends db {
         }
     }
 
+    public function delete_product() {
+        if ($this->delete_image()) {
+            $sql = "DELETE FROM `product` WHERE member_id = " . $this->member_id . " AND product_id = " . $this->product_id;
+            $result = $this->query($sql, $rows, $num_rows, $last_id);
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            echo '';
+            return false;
+        }
+    }
+
+    public function delete_image() {
+        $sql = "SELECT `product_mockup`, `product_file1`, `product_file2`, `product_file3`, `product_file4`, `product_file5`, `product_file6` FROM `product` WHERE member_id = " . $this->member_id . " AND product_id = " . $this->product_id . " LIMIT 1";
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            $success = 1;
+            foreach ($rows[0] as $k => $v) {
+                print $v . "<BR>";
+                if (!empty($v)) {
+                    if (!unlink($v)) {
+                        $success = 0;
+                    }
+                }
+            }
+
+            if ($success == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     public function upload_mockup($data = array()) {
         // ตรวจสอบแฟ้ม
         if ($this->validate_path()) {
