@@ -95,6 +95,7 @@ Array
                     <label for="" class="control-label col-md-3">เวลาทำการโอน *</label>
                     <div class="col-md-9">
                         <input type="time" class="form-control" id="time_transfer" name="time_transfer" required>
+                        <!-- <input type="text" pattern="([01]?[0-9]{1}|2[0-3]{1}):[0-5]{1}[0-9]{1}" class="form-control" id="time_transfer" name="time_transfer" required> -->
                     </div>
                 </div>
                 <div class="form-group">

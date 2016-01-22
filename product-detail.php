@@ -82,7 +82,7 @@ if ($data === false) {
                 <div class="col-md-9"><?=$data['product_id'];?></div>
             </div>
             <div class="form-group">
-                <label for="" class="control-label col-md-3 textRight font1_5em"><strong>ราคาซื้อ :</strong></label>
+                <label for="" class="control-label col-md-3 textRight font1_5em"><strong>ราคาทุน :</strong></label>
                 <div class="col-md-9 greenColor font1_5em">
                     <?php
 if ($data['confirm_status'] == 'confirm') {

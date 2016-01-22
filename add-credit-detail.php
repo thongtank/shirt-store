@@ -10,6 +10,7 @@ if (!isset($_SESSION['member_id']) || !isset($_GET['invoice_id'])) {
     $data = array();
 
     $data = $member->get_credit_by_invoice_id($_GET['invoice_id']);
+    // print_r($data);
     if (count($data) == 0) {
         echo "<meta http-equiv='refresh' content='0;url=index.php'>";
         exit;
@@ -38,7 +39,7 @@ if (!isset($_SESSION['member_id']) || !isset($_GET['invoice_id'])) {
         $status = "<font color=red>ยังไม่ชำระค่า Credit Packet</font>";
         break;
     case 'transfered':
-        $status = "<font color=#BDAE08>แจ้งการชำระค่า  แล้ว กำลังรอการตรวจสอบ</font>";
+        $status = "<font color=#BDAE08>แจ้งการชำระค่าสินค้าแล้ว กำลังรอการตรวจสอบ</font>";
         break;
     default:
         $status = "ระบบได้ทำการเติม Credit Packet ให้ท่านเรียบร้อยแล้ว";
@@ -50,15 +51,18 @@ if (!isset($_SESSION['member_id']) || !isset($_GET['invoice_id'])) {
     <div class="container">
         <div class="col-md-12">
             <div class="table-responsive">
-                <table class="">
+                <table class="col-md-12">
                     <tbody>
                         <tr>
                             <td style="width: 40%; text-align: center;">
-                                <h1 class="greenColor">EZTeech.com</h1>
+                                <h1 class="greenColor"><?=$data['packet'];?></h1>
                             </td>
-                            <td style="width: 60%;">
+                            <td style="width: 60%; padding-left: 10px;">
                                 <h2 class="redColor"></h2>
                                 <h2 class="greenColor"><?=$status;?></h2>
+                                <?php
+if ($data['status'] == 'pending') {
+    ?>
                                 <h3>สามารถโอนเงินเข้าบัญชีได้ที่</h3>
                                 <p>
                                     + ธ.กสิกรไทย สาขาถนนชยางกูร เลขบัญชี : 2602605585 ชื่อบัญชี : ร้านบิสเน็ตโดยนายอดุลย์เดช วงศ์งาม
@@ -69,11 +73,16 @@ if (!isset($_SESSION['member_id']) || !isset($_GET['invoice_id'])) {
                                 <p>
                                     + ธ.ไทยพานิชย์
                                 </p>
+
                                 <h3 class="greenColor">หลังจากโอนเงินแล้วรบกวนแจ้งโอนเงินได้ที่</h3>
                                 <a id="link_confirm" href="./confirm.php?invoice_id=<?=$_GET['invoice_id'];?>"><h3>http://www.ezteech.com/confirm.php</h3></a>
+
                                 <p>
                                     โดยกรอก ข้อมูลต่างๆลงไปให้ครบถ้วนเพื่อความสะดวกและรวดเร็วในการยืนยันได้เร็วขึ้น
                                 </p>
+                                <?php
+}
+?>
                                 <p>Reference Number:
                                     <?=sprintf('%05d', $_GET['invoice_id']);?>
                                 </p>

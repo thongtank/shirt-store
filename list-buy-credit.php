@@ -88,22 +88,22 @@ $status = "";
         $color = "";
         $cancel_link = "";
         if ($v['status'] == 'pending') {
-            $status = "รอการยืนยัน";
-            $color = "danger";
+            $status = "<a href='confirm.php?invoice_id=" . $v['invoice_id'] . "'><label class='label label-danger'><i class='fa fa-bell-o v_middle'></i> แจ้งการโอนเงิน</label></a>";
+            // $color = "danger";
             $cancel_url = 'cancel-credit.php?invoice_id=' . base64_encode($v['invoice_id']);
-            $cancel_link = '&nbsp;<a href=' . $cancel_url . ' onclick="return confirm(\'ยืนยันการลบข้อมูล ?\');"><label class="label label-danger"><i class="fa fa-close"></i> ยกเลิกรายการ</label></a>';
+            $cancel_link = '&nbsp;<a class="" href=' . $cancel_url . ' onclick="return confirm(\'ยืนยันการลบข้อมูล ?\');"><label class="label label-danger"><i class="fa fa-close v_middle"></i> ยกเลิกรายการ</label></a>';
         } elseif ($v['status'] == 'transfered') {
-            $status = "แจ้งการโอนเงินแล้ว";
-            $color = "info";
+            // $color = "info";
+            $status = "<label class='label label-info'>แจ้งการโอนเงินแล้ว</label>";
         } else {
-            $status = "ยืนยันการรับเงินแล้ว";
-            $color = "success";
+            $status = "<label class='label label-success'>ยืนยันการรับเงินแล้ว</label>";
+            // $color = "success";
         }
 
         ?>
-                                    <label class="label label-<?=$color;?>">
+
                                         <?=$status;?>
-                                    </label>
+
                                     <?=$cancel_link;?>
                             </td>
                         </tr>

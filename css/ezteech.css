@@ -210,3 +210,7 @@ footer{
 .textRight{
     text-align: right;
 }
+
+.v_middle {
+    vertical-align: middle;
+}

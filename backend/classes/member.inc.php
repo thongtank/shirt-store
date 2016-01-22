@@ -72,11 +72,11 @@ class member extends db {
     }
 
     public function update_member($data = array()) {
-        $sql = "UPDATE `member` SET `username`='" . $data['username'] . "',`password`='" . $data['password'] . "',`firstname`='" . $data['firstname'] . "',`lastname`='" . $data['lastname'] . "',`gender`='" . $_SESSION['gender'] . "',`email`='" . $data['email'] . "',`tel`='" . $data['tel'] . "',`mobile`='" . $data['mobile'] . "',`last_login`=NOW() WHERE member_id = '" . $_SESSION['member_id'] . "';";
+        $sql = "UPDATE `member` SET `firstname`='" . $data['firstname'] . "',`lastname`='" . $data['lastname'] . "',`gender`='" . $_SESSION['gender'] . "',`email`='" . $data['email'] . "',`tel`='" . $data['tel'] . "',`mobile`='" . $data['mobile'] . "',`last_login`=NOW() WHERE member_id = '" . $_SESSION['member_id'] . "';";
         $result = $this->query($sql, $rows, $num_rows, $last_id);
         if ($result) {
-            $_SESSION['username'] = $data['username'];
-            $_SESSION['password'] = $data['password'];
+            // $_SESSION['username'] = $data['username'];
+            // $_SESSION['password'] = $data['password'];
             $_SESSION['firstname'] = $data['firstname'];
             $_SESSION['lastname'] = $data['lastname'];
             $_SESSION['email'] = $data['email'];

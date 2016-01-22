@@ -1,3 +1,6 @@
+<?php
+echo "<meta http-equiv='refresh' content='3;url=index.php'>";
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -52,7 +55,7 @@ and open the template in the editor.
     <div class="content">
         <i class="fa fa-thumbs-down fa-6"></i>
         <h1>การแก้ไขข้อมูลไม่สมบูรณ์</h1>
-        <a href="index.php">กลับหน้าหลัก</a>
+        <a href="frm-update-profile.php">กลับหน้าแก้ไขข้อมูล</a><br>หรือรอสักครู่เพื่อกลับหน้าหลัก
     </div>
 </body>
 

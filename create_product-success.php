@@ -1,3 +1,6 @@
+<?php
+echo "<meta http-equiv='refresh' content='3;url=index.php'>";
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -51,7 +54,7 @@ and open the template in the editor.
     <div class="content">
         <i class="fa fa-thumbs-up fa-6"></i>
         <h1>เพิ่มข้อมูลรายการสินค้าเสร็จสมบูรณ์</h1>
-        <a href="list-product.php">กลับหน้ารายการสินค้า</a>
+        <a href="list-product.php">กลับหน้ารายการสินค้า</a><br>หรือรอสักครู่เพื่อกลับหน้าหลัก
     </div>
 </body>
 
