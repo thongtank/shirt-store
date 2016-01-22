@@ -19,16 +19,16 @@ if (isset($_SESSION['member_id'])) {
                             <ul class="dropdown-menu">
                                 <li><a href="frm-add-product.php"><i class="fa fa-plus"></i> เพิ่มรายการสินค้า</a></li>
                                 <li><a href="list-product.php"><i class="fa fa-list"></i> รายการสินค้าทั้งหมด</a></li>
-                                <li><a href="list-buy-product.php"><i class="fa fa-list"></i> รายการซื้อสินค้า</a></li>
+                                <!--                                 <li><a href="list-buy-product.php"><i class="fa fa-list"></i> รายการซื้อสินค้า</a></li> -->
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-usd"></i> ข้อมูลเครดิต<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="frm-add-credit.php"><i class="fa fa-plus"></i> เติมเครดิต</a></li>
-                                <li><a href="list-buy-credit.php"><i class="fa fa-list"></i> ข้อมูลการซื้อเครดิต</a></li>
+                                <li><a href="list-buy-credit.php"><i class="fa fa-list"></i> รายการสั่งซื้อเครดิต</a></li>
                                 <!-- <li><a href="list-debit.php"><i class="fa fa-list"></i> ข้อมูลการใช้งานเครดิต</a></li> -->
-                                <li><a href="confirm.php"><i class="fa fa-plus"></i> แจ้งการชำระเงิน</a></li>
+                                <li><a href="confirm.php"><i class="fa fa-bell-o"></i> แจ้งการชำระเงิน</a></li>
                             </ul>
                         </li>
                         <!--<li><a href="javascript:void(0)"><i class="fa fa-phone"></i> ติดต่อเรา</a></li>-->

@@ -2,7 +2,11 @@
 require_once 'backend/config/autoload.inc.php';
 session_start();
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
+if (!preg_match('/www/', $_SERVER['HTTP_HOST'])) {
+    echo "<meta http-equiv='refresh' content='0;url=http://www.ezteesh.com" . $_SERVER['PHP_SELF'] . "'>";
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <!--

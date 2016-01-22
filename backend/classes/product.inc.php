@@ -69,9 +69,9 @@ class product extends db {
         if ($result) {
             $success = 1;
             foreach ($rows[0] as $k => $v) {
-                print $v . "<BR>";
+                // print $v . "<BR>";
                 if (!empty($v)) {
-                    if (!unlink($v)) {
+                    if (!unlink('uploads' . DS . 'member_' . $this->member_id . DS . $v)) {
                         $success = 0;
                     }
                 }
