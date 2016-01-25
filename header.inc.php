@@ -18,7 +18,7 @@ and open the template in the editor.
 
 <head>
     <meta charset="UTF-8">
-    <title>EZ Teesh</title>
+    <title>EZ Teesh V1</title>
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="css/bootstrap-material-design.css" rel="stylesheet" type="text/css" />
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
