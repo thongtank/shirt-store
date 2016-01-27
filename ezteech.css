@@ -1,0 +1,216 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 9 ม.ค. 2559, 14:21:07
+    Author     : admin
+*/
+@font-face {
+    font-family: fontTitle;
+    src: url(ThaiSansNeue-Light.otf);
+}
+body{
+    font-family: fontTitle;
+    font-size: 20px;
+}
+#bottomNav{
+    height: 280px;
+    background-image: url("../img/pencils.jpg");
+    background-size: cover;
+    background-position: center center;
+    text-align: center;
+    position: relative;
+    top: -20px;
+}
+
+#bottomNav h1{
+    font-weight: bold;
+    padding-top: 30px;
+    font-size: 2.5em;
+    font-family: fontTitle;
+    color: #FFFFFF;
+}
+
+#login{
+
+}
+
+#login div{
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+h1,h2,h3,h4,h5{
+    font-weight: bold;
+    font-family: fontTitle;
+}
+
+h3{
+    font-size: 1.1em;
+}
+
+.content{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.content .title{
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 20px;    
+}
+.content .search{
+    margin-top: 20px;
+}
+input{
+    font-size: 22px;
+}
+footer{
+    font-family: fontTitle;
+    font-size: 18px;
+    margin-top: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    background-color:#009688;   
+    color: #FFFFFF;
+}
+
+#addProduct  input[type=radio]{
+    /* Hide original inputs */
+    visibility: hidden;
+    position: absolute;
+}
+#addProduct input[type=radio] + label:before{
+    height:38px;
+    width:38px;
+    margin-right: 5px;
+    content: " ";
+    display:inline-block;
+    vertical-align: baseline;
+    border:1px solid #777;
+    cursor: pointer;
+}
+
+#addProduct input[type=radio] + label[for="r1"]{
+    background: #000000;
+    height:36px;
+    width:36px;
+}
+
+#addProduct input[type=radio] + label[for="r2"]{
+    background: #FFFFFF;
+    height:36px;
+    width:36px;
+}
+
+#addProduct input[type=radio] + label[for="r3"]{
+    background: red;
+    height:36px;
+    width:36px;
+}
+
+#addProduct input[type=radio] + label[for="r4"]{
+    background: #23527c;
+    height:36px;
+    width:36px;
+}
+
+#addProduct input[type=radio] + label[for="r5"]{
+    background: #777;
+    height:36px;
+    width:36px;
+}
+
+#addProduct input[type=radio]:checked + label:before{
+    //background:gold;
+    border: #009688 3px solid;
+}
+
+/* CUSTOM RADIO AND CHECKBOX STYLES */
+#addProduct input[type=radio] + label:before{
+    border-radius:0%;
+}
+
+.imgMockUp{
+    margin: 0 auto;
+    width: 400px;
+    height: 200px;
+    background-color: #000000;
+    background-image: url("../img/imgPlusMockup.png");
+    background-size: cover;
+}
+
+.img1,.img2,.img3,.img4,.img5,.img6{
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    background-color: #000000;
+    background-image: url("../img/imgPlus.png");
+    background-size: cover;
+}
+
+#textCenter{
+    font-size: 20px;
+    text-align: left;
+    color: #000000;
+}
+
+.product-card{
+    width: 100%;
+    height: auto;
+    border: 1px #9d9d9d solid;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.product-card img{
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.product-card .detail{
+
+}
+
+.product-card .price{
+
+}
+
+.product-card .buy{
+    color: #777;
+    text-align: right;
+}
+
+.greenColor{
+    color: #009688;
+}
+
+.redColor{
+    color: red;
+}
+
+.product-card .btn{
+
+}
+
+#div-listView{
+    display: none;
+}
+
+.font1_5em{
+    font-size: 1.5em;
+}
+.font2em{
+    font-size: 2em;
+}
+.textRight{
+    text-align: right;
+}
+
+.v_middle {
+    vertical-align: middle;
+}
