@@ -7,12 +7,12 @@ if (!isset($_SESSION['member_id'])) {
 // require_once 'backend/config/autoload.inc.php';
 use classes as cls;
 $product = new cls\product;
+$order = new cls\order;
+
 $product->member_id = $_SESSION['member_id'];
 
 $data = array();
 $data = $product->get_product_by_member_id();
-// print "<pre>" . print_r($data, 1) . "</pre>";
-// exit;
 ?>
     <div class="clearfix"></div>
     <div class="content">
@@ -35,6 +35,8 @@ $data = $product->get_product_by_member_id();
 if (count($data) > 0) {
     $i = 1;
     foreach ($data as $k => $v) {
+        $order->product_id = $v['product_id'];
+        $count_order = $order->count_order_by_product_id();
         ?>
                 <div class="col-md-3">
                     <div class="product-card">
@@ -44,7 +46,7 @@ if (count($data) > 0) {
                             <div class="col-md-4 col-sm-4 price">
                                 <?=$v['confirm_price'];?> เครดิต</div>
                             <div class="col-md-8 col-sm-8 buy">
-                                <span class="greenColor"><i class="fa fa-shopping-cart"></i> ซื้อแล้ว <?="...";?> ครั้ง</span>
+                                <span class="greenColor"><i class="fa fa-shopping-cart"></i> ซื้อแล้ว <?=$count_order;?> ครั้ง</span>
                             </div>
                             <div class="clearfix"></div>
                             <a onclick="return confirm('คุณต้องการลบสินค้ารายการนี้หรือไม่ ?');" class="btn btn-raised btn-danger" href="delete-product.php?product_id=<?=base64_encode($v['product_id']);?>&c=<?=$i;?>"><i class="fa fa-trash"></i> ลบ</a>
@@ -83,6 +85,8 @@ $i++;
 if (count($data) > 0) {
     $i = 1;
     foreach ($data as $k => $v) {
+        $order->product_id = $v['product_id'];
+        $count_order = $order->count_order_by_product_id();
         ?>
                         <tr>
                             <td scope=row>
@@ -98,7 +102,7 @@ if (count($data) > 0) {
                                 <?=$v['confirm_price'];?>
                             </td>
                             <td class="greenColor">ซื้อแล้ว
-                                <?="...";?> ครั้ง</td>
+                                <?=$count_order;?> ครั้ง</td>
                             <td>
                                 <a onclick="return confirm('คุณต้องการลบสินค้ารายการนี้หรือไม่ ?');" class="btn btn-raised btn-danger" href="delete-product.php?product_id=<?=base64_encode($v['product_id']);?>&c=<?=$i;?>"><i class="fa fa-trash"></i> ลบ</a>
                                 <?php

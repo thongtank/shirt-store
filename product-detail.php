@@ -8,9 +8,9 @@ if (!isset($_SESSION['member_id']) || !isset($_GET['product_id'])) {
 use classes as cls;
 
 $product = new cls\product;
+$order = new cls\order;
 $product->product_id = $_GET['product_id'];
 $product->member_id = $_SESSION['member_id'];
-
 $data = $product->get_product_by_product_id('all');
 if ($data === false) {
     echo "<meta http-equiv='refresh' content='0;url=list-product.php'>";
@@ -21,6 +21,9 @@ if (count($data) == 0) {
     echo "<meta http-equiv='refresh' content='0;url=list-product.php'>";
     exit;
 }
+
+$order->product_id = $_GET['product_id'];
+$count_order = $order->count_order_by_product_id();
 
 ?>
     <div class="content">
@@ -109,7 +112,7 @@ default:
             </div>
             <div class="form-group">
                 <label for="" class="control-label col-md-3 textRight"><strong>สั่งแล้ว :</strong></label>
-                <div class="col-md-9 greenColor">... ครั้ง</div>
+                <div class="col-md-9 greenColor"><?=$count_order;?> ครั้ง</div>
             </div>
             <a onclick="return confirm('คุณต้องการลบสินค้ารายการนี้หรือไม่ ?');" class="btn btn-raised btn-danger" href="delete-product.php?product_id=<?=base64_encode($data['product_id']);?>"><i class="fa fa-trash"></i> ลบข้อมูล</a>
             <a class="btn btn-raised btn-primary" href="#"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</a>

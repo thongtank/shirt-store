@@ -58,4 +58,14 @@ class order extends db {
             return false;
         }
     }
+
+    public function count_order_by_product_id() {
+        $sql = "SELECT * FROM orders_detail WHERE product_id = " . $this->product_id . " GROUP BY order_id";
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return $num_rows;
+        } else {
+            return false;
+        }
+    }
 }
