@@ -38,11 +38,54 @@ class product extends db {
         }
     }
 
-    public function get_product_by_product_id() {
-        $sql = "SELECT * FROM `product` WHERE `product_id` = " . $this->product_id . " AND member_id = " . $this->member_id . " LIMIT 1";
+    public function get_product_by_product_id($status = '') {
+        if ($status == 'confirmed') {
+            $sql = "SELECT * FROM `product` WHERE `product_id` = " . $this->product_id . " AND member_id = " . $this->member_id . " and confirm_status = 'confirm' LIMIT 1";
+        } else {
+            $sql = "SELECT * FROM `product` WHERE `product_id` = " . $this->product_id . " AND member_id = " . $this->member_id . " LIMIT 1";
+        }
+
         $result = $this->query($sql, $rows, $num_rows, $last_id);
         if ($result) {
             return $rows[0];
+        } else {
+            return false;
+        }
+    }
+
+    public function delete_product() {
+        if ($this->delete_image()) {
+            $sql = "DELETE FROM `product` WHERE member_id = " . $this->member_id . " AND product_id = " . $this->product_id;
+            $result = $this->query($sql, $rows, $num_rows, $last_id);
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function delete_image() {
+        $sql = "SELECT `product_mockup`, `product_file1`, `product_file2`, `product_file3`, `product_file4`, `product_file5`, `product_file6` FROM `product` WHERE member_id = " . $this->member_id . " AND product_id = " . $this->product_id . " LIMIT 1";
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            $success = 1;
+            foreach ($rows[0] as $k => $v) {
+                // print $v . "<BR>";
+                if (!empty($v)) {
+                    if (!unlink('uploads' . DS . 'member_' . $this->member_id . DS . $v)) {
+                        $success = 0;
+                    }
+                }
+            }
+
+            if ($success == 1) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
@@ -130,7 +173,11 @@ class product extends db {
     public function upload_detail_file() {
 
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> origin/for_merge
     //admin
     public function get_product_wait_confirm() {
         $sql = "SELECT * FROM `product` WHERE `confirm_status` = 'pending'";
@@ -141,7 +188,11 @@ class product extends db {
             return false;
         }
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> origin/for_merge
     public function get_product_wait_confirm_by_product_id() {
         $sql = "SELECT * FROM `product` WHERE `product_id` = " . $this->product_id . "";
         $result = $this->query($sql, $rows, $num_rows, $last_id);
@@ -151,9 +202,15 @@ class product extends db {
             return false;
         }
     }
+<<<<<<< HEAD
     
     public function set_product_price_by_product_id($data = array()) {
         $sql = "UPDATE product SET confirm_status = 'confirm',confirm_date=NOW(),confirm_price=".$data['product_price'].",manager_id=".$this->manager_id." WHERE product_id = ".$data['product_id'];
+=======
+
+    public function set_product_price_by_product_id($data = array()) {
+        $sql = "UPDATE product SET confirm_status = 'confirm',confirm_date=NOW(),confirm_price=" . $data['product_price'] . ",manager_id=" . $this->manager_id . " WHERE product_id = " . $data['product_id'];
+>>>>>>> origin/for_merge
         $result = $this->query($sql, $rows, $num_rows, $last_id);
         if ($result) {
             return 1;

@@ -1,14 +1,10 @@
 <?php
-
 namespace classes;
-
-// session_start();
-
 use config\database as db;
 
 class member extends db {
 
-    public $member_id, $facebook_id, $firstname, $lastname, $gender, $email, $tel, $mobile, $credit;
+    public $member_id, $facebook_id, $firstname, $lastname, $gender, $email, $tel, $mobile, $credit, $debit, $balance;
     /*
     MEMBER
      */
@@ -33,8 +29,8 @@ class member extends db {
                 $this->tel = $_SESSION['tel'];
                 $this->mobile = $_SESSION['mobile'];
 
-                if ($this->get_balance()) {
-                    $_SESSION['credit_balance'] = $this->credit;
+                if ($this->cal_balance()) {
+                    $_SESSION['credit_balance'] = $this->balance;
                 }
 
                 if ($this->set_last_login_time()) {
@@ -76,11 +72,11 @@ class member extends db {
     }
 
     public function update_member($data = array()) {
-        $sql = "UPDATE `member` SET `username`='" . $data['username'] . "',`password`='" . $data['password'] . "',`firstname`='" . $data['firstname'] . "',`lastname`='" . $data['lastname'] . "',`gender`='" . $_SESSION['gender'] . "',`email`='" . $data['email'] . "',`tel`='" . $data['tel'] . "',`mobile`='" . $data['mobile'] . "',`last_login`=NOW() WHERE member_id = '" . $_SESSION['member_id'] . "';";
+        $sql = "UPDATE `member` SET `firstname`='" . $data['firstname'] . "',`lastname`='" . $data['lastname'] . "',`gender`='" . $_SESSION['gender'] . "',`email`='" . $data['email'] . "',`tel`='" . $data['tel'] . "',`mobile`='" . $data['mobile'] . "',`last_login`=NOW() WHERE member_id = '" . $_SESSION['member_id'] . "';";
         $result = $this->query($sql, $rows, $num_rows, $last_id);
         if ($result) {
-            $_SESSION['username'] = $data['username'];
-            $_SESSION['password'] = $data['password'];
+            // $_SESSION['username'] = $data['username'];
+            // $_SESSION['password'] = $data['password'];
             $_SESSION['firstname'] = $data['firstname'];
             $_SESSION['lastname'] = $data['lastname'];
             $_SESSION['email'] = $data['email'];
@@ -133,12 +129,42 @@ class member extends db {
     /*
     CREDIT
      */
-    public function get_balance() {
-        $sql = "SELECT SUM(credit) AS credit FROM credit WHERE member_id = '" . $this->member_id . "' and status = 'confirm';";
-        // echo $sql;
+    public function cal_balance() {
+        // ยังไม่ได้ทำ get_debit()
+        $credit_balance = 0;
+        if ($this->get_credit()) {
+            if ($this->get_debit()) {
+                $credit_balance = $this->credit - $this->debit;
+                $sql = "UPDATE member SET credit_balance = " . $credit_balance . ", date_last_cal_balance = NOW() WHERE member_id = " . $_SESSION['member_id'];
+                $result = $this->query($sql, $rows, $num_rows, $last_id);
+                if ($result) {
+                    $this->balance = $credit_balance;
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function get_credit() {
+        $sql = "SELECT SUM(credit) as credit, SUM(free) AS free FROM credit WHERE member_id = '" . $this->member_id . "' and status = 'confirm';";
         $result = $this->query($sql, $rows, $num_rows, $last_id);
         if ($result) {
-            $this->credit = $rows[0]['credit'];
+            $this->credit = $rows[0]['credit'] + $rows[0]['free'];
+            return true;
+        }
+    }
+
+    public function get_debit() {
+        $sql = "SELECT SUM(total) as debit FROM orders WHERE member_id = " . $this->member_id;
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            $this->debit = $rows[0]['debit'];
             return true;
         }
     }
@@ -165,7 +191,10 @@ class member extends db {
 
         $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
         if ($result) {
-
+            // ยังไม่ต้องคำนวณยอดเพราะยังไม่ผ่านการ confirm จาก admin
+            // if ($this->cal_balance()) {
+            //     $_SESSION['credit_balance'] = $this->balance;
+            // }
             return $last_id;
             // $_SESSION['invoice_id'] = $last_id;
             // return true;
@@ -185,7 +214,7 @@ class member extends db {
 
     public function cancel_credit($invoice_id) {
         $sql = "DELETE FROM `credit` WHERE invoice_id = " . $invoice_id . " AND member_id = " . $this->member_id;
-        print $sql;
+        // print $sql;
         $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
         if ($result) {
             return true;
@@ -214,11 +243,14 @@ class member extends db {
 
     public function update_confirm_credit($data = array()) {
         $add_credit = $data['credit'] + $data['free'];
-        $sql = "UPDATE credit SET status = 'confirm',date_confirm=NOW(),manager_id='" . $data['manager_id'] . "' WHERE invoice_id = '" . $data['invoice_id'] . "';";
+        $sql = "UPDATE credit SET  status = 'confirm', date_confirm=NOW(), manager_id='" . $data['manager_id'] . "' WHERE invoice_id = '" . $data['invoice_id'] . "' AND member_id = " . $data['member_id'] . ";";
         $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
-        $sql_add_credit = "UPDATE member SET credit_balance = credit_balance +5000 WHERE member_id='" . $data['member_id'] . "'";
-        $this->query($sql_add_credit, $rows, $num_rows, $last_id);
+        // $sql_add_credit = "UPDATE member SET credit_balance = credit_balance +5000 WHERE member_id='" . $data['member_id'] . "'";
+        // $this->query($sql_add_credit, $rows, $num_rows, $last_id);
         if ($result) {
+            if ($this->cal_balance()) {
+                $_SESSION['credit_balance'] = $this->balance;
+            }
             return true;
         }
     }
@@ -272,6 +304,9 @@ class member extends db {
                 if ($this->set_last_login_time()) {
                     foreach ($rows[0] as $key => $value) {
                         $_SESSION[$key] = $value;
+                    }
+                    if ($this->cal_balance()) {
+                        $_SESSION['credit_balance'] = $this->balance;
                     }
                     return true;
                 } else {

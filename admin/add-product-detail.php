@@ -105,7 +105,11 @@ if ($data === false) {
             <label for="" class="control-label col-md-3 textRight"><strong>สั่งแล้ว :</strong></label>
             <div class="col-md-9 greenColor">... ครั้ง</div>
         </div>
+<<<<<<< HEAD
         <form class="form-horizontal form-register" method="POST" id="frm_confirm_price">
+=======
+        <form class="form-horizontal form-register" method="GET" id="frm_confirm_price">
+>>>>>>> origin/for_merge
             <div class="form-group">
                 <label for="" class="control-label col-md-3">กำหนดราคา *</label>
                 <div class="col-md-9">

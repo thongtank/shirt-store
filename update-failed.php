@@ -1,31 +1,12 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>EZ Teesh</title>
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="css/bootstrap-material-design.css" rel="stylesheet" type="text/css" />
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/ezteech.css" rel="stylesheet" type="text/css" />
-    <script src="js/jquery.min.js" type="text/javascript"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<?php
+require_once 'header.inc.php';
+echo "<meta http-equiv='refresh' content='3;url=index.php'>";
+if (!isset($_SESSION['member_id'])) {
+    echo "<meta http-equiv='refresh' content='0;url=index.php'>";
+    exit;
+}
+?>
     <style>
-    html {
-        height: 100%;
-    }
-
-    body {
-        display: table;
-        width: 100%;
-        height: 100%;
-    }
-
     div.content {
         text-align: center;
         vertical-align: middle;
@@ -45,15 +26,13 @@ and open the template in the editor.
         font-size: 20em;
     }
     </style>
-</head>
-
-<body>
-
+    <div class="clearfix"></div>
     <div class="content">
         <i class="fa fa-thumbs-down fa-6"></i>
         <h1>การแก้ไขข้อมูลไม่สมบูรณ์</h1>
-        <a href="index.php">กลับหน้าหลัก</a>
+        <a href="frm-update-profile.php">กลับหน้าแก้ไขข้อมูล</a>
+        <br>หรือรอสักครู่เพื่อกลับหน้าหลัก
     </div>
-</body>
-
-</html>
+    <?php
+require_once './footer.inc.php';
+?>

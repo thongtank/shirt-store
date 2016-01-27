@@ -1,9 +1,12 @@
 <?php
-session_start();
-// print_r($_SESSION);
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 require_once 'backend/config/autoload.inc.php';
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+// if (!preg_match('/www/', $_SERVER['HTTP_HOST'])) {
+//     echo "<meta http-equiv='refresh' content='0;url=http://www.ezteesh.com" . $_SERVER['PHP_SELF'] . "'>";
+//     exit;
+// }
 ?>
 <!DOCTYPE html>
 <!--
@@ -13,6 +16,7 @@ and open the template in the editor.
 -->
 <html>
 
+<<<<<<< HEAD
     <head>
         <meta charset="UTF-8">
         <title>EZ Teesh</title>
@@ -83,3 +87,21 @@ and open the template in the editor.
         <?php
         include './nav.php';
         ?>
+=======
+<head>
+    <meta charset="UTF-8">
+    <title>EZ Teesh V1</title>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-material-design.css" rel="stylesheet" type="text/css" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/ezteech.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <?php
+include './nav.php';
+?>
+>>>>>>> origin/for_merge
