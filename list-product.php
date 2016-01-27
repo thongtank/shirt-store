@@ -4,6 +4,10 @@ if (!isset($_SESSION['member_id'])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'>";
     exit;
 }
+use classes as cls;
+$product = new cls\product;
+$order = new cls\order;
+$member = new cls\member;
 
 $product->member_id = $_SESSION['member_id'];
 
@@ -17,14 +21,14 @@ $data = $product->get_product_by_member_id();
 
         <a class="btn btn-primary" id="bnt-listView" href="#"><i class="fa fa-list"></i> List View</a>
     </h2>
-        <div class="col-lg-6 search">
+        <!-- <div class="col-lg-6 search">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search for...">
                 <span class="input-group-btn">
                 <button class="btn btn-raised btn-primary" type="button"><i class="fa fa-search"></i> ค้นหา!</button>
             </span>
             </div>
-        </div>
+        </div> -->
         <div class="clearfix"></div>
         <div id="div-gridView">
             <?php
@@ -49,8 +53,10 @@ if (count($data) > 0) {
                             <?php
 if ($v['confirm_status'] == 'confirm') {
             ?>
-                            <a href="buy-product.php?product_id=<?=$v['product_id']?>"><button type="submit" class="btn btn-raised btn-primary pull-right" id="" name="" value="สั่งซื้อ"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button></a>
-                            <?php
+                                <a href="buy-product.php?product_id=<?=$v['product_id']?>">
+                                    <button type="submit" class="btn btn-raised btn-primary pull-right" id="" name="" value="สั่งซื้อ"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button>
+                                </a>
+                                <?php
 }
         ?>
                         </div>
@@ -104,8 +110,10 @@ if (count($data) > 0) {
                                 <?php
 if ($v['confirm_status'] == 'confirm') {
             ?>
-                                <a href="buy-product.php?product_id=<?=$v['product_id']?>"><button type="submit" class="btn btn-raised btn-primary" id="" name="" value="บันทึกข้อมูล"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button></a>
-                                <?php
+                                    <a href="buy-product.php?product_id=<?=$v['product_id']?>">
+                                        <button type="submit" class="btn btn-raised btn-primary" id="" name="" value="บันทึกข้อมูล"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button>
+                                    </a>
+                                    <?php
 }
         ?>
                             </td>

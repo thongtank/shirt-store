@@ -1,11 +1,6 @@
 <?php
-require_once 'backend/config/autoload.inc.php';
 session_start();
-use classes as cls;
-$product = new cls\product;
-$order = new cls\order;
-$member = new cls\member;
-
+require_once 'backend/config/autoload.inc.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 // if (!preg_match('/www/', $_SERVER['HTTP_HOST'])) {
