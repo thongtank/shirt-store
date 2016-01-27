@@ -68,12 +68,10 @@ if ($order->set_order()) {
 
         if (!$order->set_order_detail()) {
             print 'insert order detail error for number ' . $i . '<BR>';
-            break;
         }
     }
 } else {
     print 'error product number is ' . $i . '<BR>';
-    break;
 }
 
 if ($order->update_order_total_price($total)) {

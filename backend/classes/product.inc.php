@@ -173,11 +173,7 @@ class product extends db {
     public function upload_detail_file() {
 
     }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> origin/for_merge
     //admin
     public function get_product_wait_confirm() {
         $sql = "SELECT * FROM `product` WHERE `confirm_status` = 'pending'";
@@ -188,11 +184,7 @@ class product extends db {
             return false;
         }
     }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> origin/for_merge
     public function get_product_wait_confirm_by_product_id() {
         $sql = "SELECT * FROM `product` WHERE `product_id` = " . $this->product_id . "";
         $result = $this->query($sql, $rows, $num_rows, $last_id);
@@ -202,15 +194,10 @@ class product extends db {
             return false;
         }
     }
-<<<<<<< HEAD
-    
-    public function set_product_price_by_product_id($data = array()) {
-        $sql = "UPDATE product SET confirm_status = 'confirm',confirm_date=NOW(),confirm_price=".$data['product_price'].",manager_id=".$this->manager_id." WHERE product_id = ".$data['product_id'];
-=======
+
 
     public function set_product_price_by_product_id($data = array()) {
         $sql = "UPDATE product SET confirm_status = 'confirm',confirm_date=NOW(),confirm_price=" . $data['product_price'] . ",manager_id=" . $this->manager_id . " WHERE product_id = " . $data['product_id'];
->>>>>>> origin/for_merge
         $result = $this->query($sql, $rows, $num_rows, $last_id);
         if ($result) {
             return 1;

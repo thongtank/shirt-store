@@ -16,7 +16,6 @@ and open the template in the editor.
 -->
 <html>
 
-<<<<<<< HEAD
     <head>
         <meta charset="UTF-8">
         <title>EZ Teesh</title>
@@ -87,21 +86,4 @@ and open the template in the editor.
         <?php
         include './nav.php';
         ?>
-=======
-<head>
-    <meta charset="UTF-8">
-    <title>EZ Teesh V1</title>
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="css/bootstrap-material-design.css" rel="stylesheet" type="text/css" />
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/ezteech.css" rel="stylesheet" type="text/css" />
 
-    <script src="js/jquery.min.js" type="text/javascript"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
-</head>
-
-<body>
-    <?php
-include './nav.php';
-?>
->>>>>>> origin/for_merge

@@ -50,7 +50,7 @@ $(function() {
         $.post('backend/order.php', {
             data: JSON.stringify($(this).serializeArray())
         }, function(data) {
-            // console.log(data);
+//             console.log(data);
             if (data == 'out of credit') {
                 // alert('จำนวนเครดิตของท่านไม่เพียงพอ กรุณาเติม');
                 $('#hidden_outofcredit').show();
