@@ -4,10 +4,6 @@ if (!isset($_SESSION['member_id'])) {
     echo "<meta http-equiv='refresh' content='0;url=index.php'>";
     exit;
 }
-// require_once 'backend/config/autoload.inc.php';
-use classes as cls;
-$product = new cls\product;
-$order = new cls\order;
 
 $product->member_id = $_SESSION['member_id'];
 

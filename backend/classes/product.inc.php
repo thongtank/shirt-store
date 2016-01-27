@@ -1,6 +1,5 @@
 <?php
 namespace classes;
-
 use config\database as db;
 
 class product extends db {
@@ -194,7 +193,6 @@ class product extends db {
             return false;
         }
     }
-
 
     public function set_product_price_by_product_id($data = array()) {
         $sql = "UPDATE product SET confirm_status = 'confirm',confirm_date=NOW(),confirm_price=" . $data['product_price'] . ",manager_id=" . $this->manager_id . " WHERE product_id = " . $data['product_id'];
