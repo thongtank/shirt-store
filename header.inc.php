@@ -13,19 +13,73 @@ and open the template in the editor.
 -->
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <title>EZ Teesh</title>
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="css/bootstrap-material-design.css" rel="stylesheet" type="text/css" />
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/ezteech.css" rel="stylesheet" type="text/css" />
+    <head>
+        <meta charset="UTF-8">
+        <title>EZ Teesh</title>
+        <link rel="icon" href="img/logo.jpg" type="image/x-icon"/>
+        <link rel="shortcut icon" href="img/logo.jpg" type="image/x-icon" />
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="css/bootstrap-material-design.css" rel="stylesheet" type="text/css" />
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="css/ezteech.css" rel="stylesheet" type="text/css" />
+        <link href="css/ap-scroll-top.css" rel="stylesheet" type="text/css"/>
 
-    <script src="js/jquery.min.js" type="text/javascript"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
-</head>
+        <script src="js/jquery.min.js" type="text/javascript"></script>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/ap-scroll-top.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            // Setup plugin with default settings
+            $(document).ready(function () {
 
-<body>
-    <?php
-include './nav.php';
-?>
+                $.apScrollTop({
+                    'onInit': function (evt) {
+                        console.log('apScrollTop: init');
+                    }
+                });
+
+                // Add event listeners
+                $.apScrollTop().on('apstInit', function (evt) {
+                    console.log('apScrollTop: init');
+                });
+
+                $.apScrollTop().on('apstToggle', function (evt, details) {
+                    console.log('apScrollTop: toggle / is visible: ' + details.visible);
+                });
+
+                $.apScrollTop().on('apstCssClassesUpdated', function (evt) {
+                    console.log('apScrollTop: cssClassesUpdated');
+                });
+
+                $.apScrollTop().on('apstPositionUpdated', function (evt) {
+                    console.log('apScrollTop: positionUpdated');
+                });
+
+                $.apScrollTop().on('apstEnabled', function (evt) {
+                    console.log('apScrollTop: enabled');
+                });
+
+                $.apScrollTop().on('apstDisabled', function (evt) {
+                    console.log('apScrollTop: disabled');
+                });
+
+                $.apScrollTop().on('apstBeforeScrollTo', function (evt, details) {
+                    console.log('apScrollTop: beforeScrollTo / position: ' + details.position + ', speed: ' + details.speed);
+                });
+
+                $.apScrollTop().on('apstScrolledTo', function (evt, details) {
+                    console.log('apScrollTop: scrolledTo / position: ' + details.position);
+                });
+
+                $.apScrollTop().on('apstDestroy', function (evt, details) {
+                    console.log('apScrollTop: destroy');
+                });
+
+            });
+
+        </script>
+    </head>
+
+    <body>
+        <?php
+        include './nav.php';
+        ?>

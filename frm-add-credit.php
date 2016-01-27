@@ -12,7 +12,7 @@ $member = new cls\member;
     <div class="content">
         <h2 class="title">เพิ่มเครดิต</h2>
         <div class="table-responsive">
-            <form action="#" method="POST" class="form-horizontal form-register">
+            <form action="#" method="POST" class="form-horizontal">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="" class="control-label col-md-3">เลือก Credit Packet *</label>

@@ -4,7 +4,7 @@ namespace classes;
 use config\database as db;
 
 class product extends db {
-    public $member_id, $product_id, $path_dir, $extension, $file_name, $last_id;
+    public $member_id, $product_id, $path_dir, $extension, $file_name, $last_id, $manager_id;
     public function set_product($data = array(), $mockup_name = "") {
         $sql = "INSERT INTO `product`(`product_name`, `product_cotton`, `product_type`, `product_colour`, `product_detail`, `date_added`, `member_id`, `confirm_status`, `product_mockup`) ";
         $sql .= "VALUES ('" . $data['product_name'] . "','" . $data['p_cotton'] . "','" . $data['p_type'] . "','" . $data['p_color'] . "','" . $data['p_detail'] . "',NOW()," . $this->member_id . ",'pending', '" . $mockup_name . "');";
@@ -129,5 +129,36 @@ class product extends db {
 
     public function upload_detail_file() {
 
+    }
+    
+    //admin
+    public function get_product_wait_confirm() {
+        $sql = "SELECT * FROM `product` WHERE `confirm_status` = 'pending'";
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return $rows;
+        } else {
+            return false;
+        }
+    }
+    
+    public function get_product_wait_confirm_by_product_id() {
+        $sql = "SELECT * FROM `product` WHERE `product_id` = " . $this->product_id . "";
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return $rows[0];
+        } else {
+            return false;
+        }
+    }
+    
+    public function set_product_price_by_product_id($data = array()) {
+        $sql = "UPDATE product SET confirm_status = 'confirm',confirm_date=NOW(),confirm_price=".$data['product_price'].",manager_id=".$this->manager_id." WHERE product_id = ".$data['product_id'];
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

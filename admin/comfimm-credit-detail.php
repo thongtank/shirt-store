@@ -40,7 +40,7 @@ switch ($data['status']) {
         <p class=""><strong>วันที่/เวลา โอน : </strong><?= $data['date_transfer'] . ' ' . $data['time_transfer']; ?></p>
         <p class="font1_5em redColor"><strong>จำนวนที่โอน : </strong><?= number_format($data['total'], 2, '.', ','); ?> บาท</p>
     </div>
-    <a id="bnt_confirm" class="btn btn-raised btn-primary"><i class="fa fa-plus"></i> เพิ่มเครดิต</a>
+    <a id="bnt_confirm" class="btn btn-raised btn-primary"><i class="fa fa-plus"></i> confirm invoice</a>
 </div>
 <script>
     $('#bnt_confirm').click(function () {
@@ -60,7 +60,7 @@ switch ($data['status']) {
                 console.log(res);
                 if (res === '1') {
                     alert('เพิ่มเครดิตให้กับสมาชิกเรียบร้อยแล้ว');
-                    window.location.assign("list-confirm-credit.php");
+                    window.location = "list-confirm-credit.php";
                 } else {
                     alert('ไม่สามารถบันทึกข้อมูลได้!!');
                 }
