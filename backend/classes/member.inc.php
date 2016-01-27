@@ -161,8 +161,12 @@ class member extends db {
     }
 
     public function get_debit() {
-        $this->debit = 0;
-        return true;
+        $sql = "SELECT SUM(total) as debit FROM orders WHERE member_id = " . $this->member_id;
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            $this->debit = $rows[0]['debit'];
+            return true;
+        }
     }
 
     public function get_list_credit() {

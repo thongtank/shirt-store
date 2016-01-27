@@ -11,36 +11,17 @@ $product = new cls\product;
 $product->product_id = $_GET['product_id'];
 $product->member_id = $_SESSION['member_id'];
 
-$data = $product->get_product_by_product_id();
+$data = $product->get_product_by_product_id('all');
 if ($data === false) {
     echo "<meta http-equiv='refresh' content='0;url=list-product.php'>";
     exit;
 }
-// print "<pre>" . print_r($data, 1) . "</pre>";
-// exit;
-// Array
-// (
-//     [product_id] => 00000000001
-//     [product_name] => [A]
-//     [product_cotton] => th
-//     [product_type] => normal_male
-//     [product_colour] => red
-//     [product_detail] => Detail for TESTING
-//     [product_mockup] => 5_1453294604_mockup.jpg
-//     [product_file1] => 5_1453294604_detail_1.jpg
-//     [product_file2] => 5_1453294604_detail_2.jpg
-//     [product_file3] => 5_1453294604_detail_3.jpg
-//     [product_file4] => 5_1453294604_detail_4.jpg
-//     [product_file5] => 5_1453294604_detail_5.jpg
-//     [product_file6] => 5_1453294604_detail_6.jpeg
-//     [date_added] => 2016-01-20 19:56:44
-//     [member_id] => 5
-//     [confirm_status] => pending
-//     [confirm_date] => 0000-00-00 00:00:00
-//     [confirm_price] => 0
-//     [confirm_notification] => n
-//     [manager_id] => 0
-// )
+
+if (count($data) == 0) {
+    echo "<meta http-equiv='refresh' content='0;url=list-product.php'>";
+    exit;
+}
+
 ?>
     <div class="content">
         <br />

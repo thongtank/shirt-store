@@ -33,6 +33,7 @@ $data = $product->get_product_by_member_id();
         <div id="div-gridView">
             <?php
 if (count($data) > 0) {
+    $i = 1;
     foreach ($data as $k => $v) {
         ?>
                 <div class="col-md-3">
@@ -46,13 +47,21 @@ if (count($data) > 0) {
                                 <span class="greenColor"><i class="fa fa-shopping-cart"></i> ซื้อแล้ว <?="...";?> ครั้ง</span>
                             </div>
                             <div class="clearfix"></div>
-                            <a onclick="return confirm('คุณต้องการลบสินค้ารายการนี้หรือไม่ ?');" class="btn btn-raised btn-danger" href="delete-product.php?product_id=<?=base64_encode($v['product_id']);?>"><i class="fa fa-trash"></i> ลบ</a>
-                            <button type="submit" class="btn btn-raised btn-primary pull-right" id="" name="" value="สั่งซื้อ"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button>
+                            <a onclick="return confirm('คุณต้องการลบสินค้ารายการนี้หรือไม่ ?');" class="btn btn-raised btn-danger" href="delete-product.php?product_id=<?=base64_encode($v['product_id']);?>&c=<?=$i;?>"><i class="fa fa-trash"></i> ลบ</a>
+                            <?php
+if ($v['confirm_status'] == 'confirm') {
+            ?>
+                            <a href="buy-product.php?product_id=<?=$v['product_id']?>"><button type="submit" class="btn btn-raised btn-primary pull-right" id="" name="" value="สั่งซื้อ"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button></a>
+                            <?php
+}
+        ?>
                         </div>
                         <div class="clearfix"></div>
                     </div>
                 </div>
-                <?php }
+                <?php
+$i++;
+    }
 }
 ?>
         </div>
@@ -91,8 +100,14 @@ if (count($data) > 0) {
                             <td class="greenColor">ซื้อแล้ว
                                 <?="...";?> ครั้ง</td>
                             <td>
-                                <a onclick="return confirm('คุณต้องการลบสินค้ารายการนี้หรือไม่ ?');" class="btn btn-raised btn-danger" href="delete-product.php?product_id=<?=base64_encode($v['product_id']);?>"><i class="fa fa-trash"></i> ลบ</a>
-                                <button type="submit" class="btn btn-raised btn-primary" id="" name="" value="บันทึกข้อมูล"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button>
+                                <a onclick="return confirm('คุณต้องการลบสินค้ารายการนี้หรือไม่ ?');" class="btn btn-raised btn-danger" href="delete-product.php?product_id=<?=base64_encode($v['product_id']);?>&c=<?=$i;?>"><i class="fa fa-trash"></i> ลบ</a>
+                                <?php
+if ($v['confirm_status'] == 'confirm') {
+            ?>
+                                <a href="buy-product.php?product_id=<?=$v['product_id']?>"><button type="submit" class="btn btn-raised btn-primary" id="" name="" value="บันทึกข้อมูล"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button></a>
+                                <?php
+}
+        ?>
                             </td>
                         </tr>
                         <?php

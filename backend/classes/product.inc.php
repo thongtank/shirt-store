@@ -38,8 +38,13 @@ class product extends db {
         }
     }
 
-    public function get_product_by_product_id() {
-        $sql = "SELECT * FROM `product` WHERE `product_id` = " . $this->product_id . " AND member_id = " . $this->member_id . " LIMIT 1";
+    public function get_product_by_product_id($status = '') {
+        if ($status == 'confirmed') {
+            $sql = "SELECT * FROM `product` WHERE `product_id` = " . $this->product_id . " AND member_id = " . $this->member_id . " and confirm_status = 'confirm' LIMIT 1";
+        } else {
+            $sql = "SELECT * FROM `product` WHERE `product_id` = " . $this->product_id . " AND member_id = " . $this->member_id . " LIMIT 1";
+        }
+
         $result = $this->query($sql, $rows, $num_rows, $last_id);
         if ($result) {
             return $rows[0];
@@ -58,7 +63,6 @@ class product extends db {
                 return false;
             }
         } else {
-            echo '';
             return false;
         }
     }
@@ -168,5 +172,36 @@ class product extends db {
 
     public function upload_detail_file() {
 
+    }
+
+    //admin
+    public function get_product_wait_confirm() {
+        $sql = "SELECT * FROM `product` WHERE `confirm_status` = 'pending'";
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return $rows;
+        } else {
+            return false;
+        }
+    }
+
+    public function get_product_wait_confirm_by_product_id() {
+        $sql = "SELECT * FROM `product` WHERE `product_id` = " . $this->product_id . "";
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return $rows[0];
+        } else {
+            return false;
+        }
+    }
+
+    public function set_product_price_by_product_id($data = array()) {
+        $sql = "UPDATE product SET confirm_status = 'confirm',confirm_date=NOW(),confirm_price=" . $data['product_price'] . ",manager_id=" . $this->manager_id . " WHERE product_id = " . $data['product_id'];
+        $result = $this->query($sql, $rows, $num_rows, $last_id);
+        if ($result) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

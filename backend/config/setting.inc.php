@@ -26,3 +26,6 @@ if (!defined('DS')) {
 if (!defined('WWW_ROOT')) {
     define('WWW_ROOT', dirname(dirname(__FILE__)));
 }
+if (!defined('UPLOAD')) {
+    define('UPLOAD', dirname(basename(dirname(dirname(__FILE__)))) . DS . 'uploads');
+}

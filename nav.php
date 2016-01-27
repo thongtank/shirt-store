@@ -19,7 +19,7 @@ if (isset($_SESSION['member_id'])) {
                             <ul class="dropdown-menu">
                                 <li><a href="frm-add-product.php"><i class="fa fa-plus"></i> เพิ่มรายการสินค้า</a></li>
                                 <li><a href="list-product.php"><i class="fa fa-list"></i> รายการสินค้าทั้งหมด</a></li>
-                                <!--                                 <li><a href="list-buy-product.php"><i class="fa fa-list"></i> รายการซื้อสินค้า</a></li> -->
+                                <li><a href="list-buy-product.php"><i class="fa fa-list"></i> รายการซื้อสินค้า</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">

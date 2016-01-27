@@ -26,10 +26,11 @@ if (!isset($_SESSION['member_id'])) {
         font-size: 20em;
     }
     </style>
+    <div class="clearfix"></div>
     <div class="content">
-        <i class="fa fa-thumbs-down fa-6"></i>
-        <h1>ลบข้อมูลสินค้าไม่สมบูรณ์</h1>
-        <a href="list-product.php">กลับหน้ารายการสินค้า</a>
+        <i class="fa fa-thumbs-up fa-6"></i>
+        <h1>การสั่งซื้อเสร็จสมบูรณ์</h1>
+        <a href="list-buy-product.php">ไปยังหน้ารายการสั่งซื้อ</a>
         <br>หรือรอสักครู่เพื่อกลับหน้าหลัก
     </div>
     <?php
