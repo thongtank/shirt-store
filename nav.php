@@ -35,6 +35,7 @@ use classes as cls; ?>
                     <ul class="dropdown-menu">
                         <li><a href="manual-register.php"><i class="fa fa-file-text-o"></i> คู่มือการสมัครสมาชิก</a></li>
                         <li><a href="manual-addproduct.php"><i class="fa fa-file-text-o"></i> คู่มือการเพิ่มลายเสื้อ</a></li>
+                        <li><a href="manual-addproduct.php"><i class="fa fa-file-text-o"></i> คู่มือการเพิ่มลายเสื้อ</a></li>
                     </ul>
                 </li>
                 <?php
