@@ -46,7 +46,7 @@ if (count($data) > 0) {
                             <div class="col-md-4 col-sm-4 price">
                                 <?=$v['confirm_price'];?> เครดิต</div>
                             <div class="col-md-8 col-sm-8 buy">
-                                <span class="greenColor"><i class="fa fa-shopping-cart"></i> ซื้อแล้ว <?=$count_order;?> ครั้ง</span>
+                                <span class="greenColor"><i class="fa fa-shopping-cart"></i> ซื้อแล้ว <?=$count_order['sum_amount'];?> ตัว</span>
                             </div>
                             <div class="clearfix"></div>
                             <a onclick="return confirm('คุณต้องการลบสินค้ารายการนี้หรือไม่ ?');" class="btn btn-raised btn-danger" href="delete-product.php?product_id=<?=base64_encode($v['product_id']);?>&c=<?=$i;?>"><i class="fa fa-trash"></i> ลบ</a>
@@ -104,7 +104,7 @@ if (count($data) > 0) {
                                 <?=$v['confirm_price'];?>
                             </td>
                             <td class="greenColor">ซื้อแล้ว
-                                <?=$count_order;?> ครั้ง</td>
+                                <?=$count_order['sum_amount'];?> ตัว</td>
                             <td>
                                 <a onclick="return confirm('คุณต้องการลบสินค้ารายการนี้หรือไม่ ?');" class="btn btn-raised btn-danger" href="delete-product.php?product_id=<?=base64_encode($v['product_id']);?>&c=<?=$i;?>"><i class="fa fa-trash"></i> ลบ</a>
                                 <?php

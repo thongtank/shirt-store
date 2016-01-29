@@ -22,8 +22,8 @@ if (!isset($_SESSION['member_id'])) {
                 <div class="col-md-9">
                     <select name="p_cotton" id="p_cotton" class="form-control" required>
                         <option value="">---เลือกเนื่อผ้า---</option>
-                        <option value="th">Cotton ไทย เบอร์ 20</option>
-                        <option value="export">Cotton ส่งออก เบอร์ 32</option>
+                        <option value="th">Cotton ไทย เบอร์ 32</option>
+                        <option value="export">Cotton ส่งออก เบอร์ 20</option>
                     </select>
                 </div>
             </div>

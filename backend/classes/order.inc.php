@@ -1,8 +1,11 @@
 <?php
+
 namespace classes {
+
     use config\database as db;
 
     class order extends db {
+
         public $member_id, $product_id, $order_id, $amount, $size, $detail, $address, $price;
 
         public function set_order() {
@@ -59,14 +62,26 @@ namespace classes {
         }
 
         public function count_order_by_product_id() {
-            $sql = "SELECT * FROM orders_detail WHERE product_id = " . $this->product_id . " GROUP BY order_id";
+            $sql = "SELECT SUM(amount) as sum_amount FROM orders_detail WHERE product_id = " . $this->product_id . "";
             $result = $this->query($sql, $rows, $num_rows, $last_id);
             if ($result) {
-                return $num_rows;
+                return $rows[0];
             } else {
                 return false;
             }
         }
+
+        //    ส่วนของ admin
+        public function get_order_all() {
+            $sql = "SELECT * FROM orders";
+            $result = $this->query($sql, $rows, $num_rows, $last_id);
+            if ($result) {
+                return $rows;
+            } else {
+                return false;
+            }
+        }
+
     }
 
 }

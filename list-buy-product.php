@@ -11,6 +11,7 @@ $data_order = $order->get_order_by_member_id();
 ?>
     <div class="clearfix"></div>
     <div class="content">
+        <h2 class="title">รายการสั่งซื้อสินค้า</h2>
         <div class="table-responsive">
             <table class="table">
                 <thead>

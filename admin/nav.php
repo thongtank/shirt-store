@@ -12,7 +12,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="list-confirm-credit.php"><i class="fa fa-check-circle"></i> Confirm Credit</a></li>
                 <li><a href="list-confirm-product.php"><i class="fa fa-shirtsinbulk"></i> รายการลายเสื้อรอยืนยันราคา</a></li>
-                <li><a href="list-confirm-credit.php"><i class="fa fa-shopping-cart"></i> รายการสั่งซื้อ</a></li>
+                <li><a href="list-buy-all-product.php"><i class="fa fa-shopping-cart"></i> รายการสั่งซื้อ</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

@@ -90,14 +90,14 @@ $count_order = $order->count_order_by_product_id();
             </div>
             <div class="form-group">
                 <label for="" class="control-label col-md-3 textRight"><strong>สั่งแล้ว :</strong></label>
-                <div class="col-md-9 greenColor"><?=$count_order;?> ครั้ง</div>
+                <div class="col-md-9 greenColor"><?= $count_order['sum_amount']; ?> ตัว</div>
             </div>
         </div>
     </div>
     <div class="clearfix"></div>
     <BR>
     <div class="col-md-12 text-center" id="hidden_outofcredit">
-        <h2 class="text-danger">จำนวนเครดิตของท่านไม่เพียงพอ ท่านสามารถเติมเครดิตได้<a href="http://localhost:8888/shirt-store/frm-add-credit.php">ที่นี่</a></h2>
+        <h2 class="text-danger">จำนวนเครดิตของท่านไม่เพียงพอ ท่านสามารถเติมเครดิตได้<a href="frm-add-credit.php">ที่นี่</a></h2>
         <h3></h3>
     </div>
     <div class="clearfix"></div>
@@ -135,8 +135,7 @@ $count_order = $order->count_order_by_product_id();
         </div>
         <div class="row content">
             <div class="col-md-12 ">
-                <button onclick="return confirm('ยืนยันข้อมูลรายการซื้อด้วยเงินสด (Cash) หรือไม่ ?');" type="submit" class="btn btn-raised btn-success pull-right"><i class="fa fa-money"></i> สั่งซื้อด้วยเงินสด (Cash)</button>
-                <button onclick="return confirm('ยืนยันข้อมูลรายการซื้อด้วยเครดิต (Credit) หรือไม่ ?');" type="submit" class="btn btn-raised btn-warning pull-right"><i class="fa fa-credit-card"></i> สั่งซื้อด้วยเครดิต (Credit)</button>
+                <button onclick="return confirm('ยืนยันข้อมูลรายการซื้อหรือไม่ ?');" type="submit" class="btn btn-raised btn-primary pull-right"><i class="fa fa-shopping-cart"></i> สั่งซื้อ</button>
                 <button type="button" class="btn btn-raised btn-primary pull-right" id="btt_plus"><i class="fa fa-plus"></i></button>
             </div>
         </div>
