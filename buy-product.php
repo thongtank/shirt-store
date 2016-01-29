@@ -13,6 +13,7 @@ $product->product_id = $_GET['product_id'];
 $product->member_id = $_SESSION['member_id'];
 
 $data = $product->get_product_by_product_id('confirmed');
+
 if ($data === false) {
     echo "<meta http-equiv='refresh' content='0;url=list-product.php'>";
     exit;
@@ -135,7 +136,7 @@ $count_order = $order->count_order_by_product_id();
         </div>
         <div class="row content">
             <div class="col-md-12 ">
-                <button onclick="return confirm('ยืนยันข้อมูลรายการซื้อด้วยเงินสดหรือไม่ ?');" type="submit" class="btn btn-raised btn-success pull-right"><i class="fa fa-shopping-cart"></i> สั่งซื้อด้วยเงินสด (Cash)</button>
+                <!-- <button onclick="return confirm('ยืนยันข้อมูลรายการซื้อด้วยเงินสดหรือไม่ ?');" type="submit" class="btn btn-raised btn-success pull-right"><i class="fa fa-shopping-cart"></i> สั่งซื้อด้วยเงินสด (Cash)</button> -->
                 <button onclick="return confirm('ยืนยันข้อมูลรายการซื้อด้วยเครดิตหรือไม่ ?');" type="submit" class="btn btn-raised btn-warning pull-right"><i class="fa fa-shopping-cart"></i> สั่งซื้อด้วยเครดิต (Credit)</button>
                 <button type="button" class="btn btn-raised btn-primary pull-right" id="btt_plus"><i class="fa fa-plus"></i></button>
             </div>

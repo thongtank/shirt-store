@@ -63,9 +63,14 @@ namespace classes {
 
         public function count_order_by_product_id() {
             $sql = "SELECT SUM(amount) as sum_amount FROM orders_detail WHERE product_id = " . $this->product_id . "";
+            // echo $sql;
             $result = $this->query($sql, $rows, $num_rows, $last_id);
             if ($result) {
+                if ($rows[0]['sum_amount'] == '') {
+                    $rows[0]['sum_amount'] = 0;
+                }
                 return $rows[0];
+
             } else {
                 return false;
             }
