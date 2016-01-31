@@ -4,8 +4,6 @@ if (!isset($_SESSION['member_id']) || !isset($_GET['product_id'])) {
     echo "<meta http-equiv='refresh' content='0;url=list-product.php'>";
     exit;
 }
-require_once 'backend/config/autoload.inc.php';
-
 use classes as cls;
 
 $product = new cls\product;
@@ -136,8 +134,8 @@ $count_order = $order->count_order_by_product_id();
         </div>
         <div class="row content">
             <div class="col-md-12 ">
-                <!-- <button onclick="return confirm('ยืนยันข้อมูลรายการซื้อด้วยเงินสดหรือไม่ ?');" type="submit" class="btn btn-raised btn-success pull-right"><i class="fa fa-shopping-cart"></i> สั่งซื้อด้วยเงินสด (Cash)</button> -->
-                <button onclick="return confirm('ยืนยันข้อมูลรายการซื้อด้วยเครดิตหรือไม่ ?');" type="submit" class="btn btn-raised btn-warning pull-right"><i class="fa fa-shopping-cart"></i> สั่งซื้อด้วยเครดิต (Credit)</button>
+                <button onclick="return confirm('ยืนยันข้อมูลรายการซื้อด้วยเงินสด (CASH) หรือไม่ ?');" class="btn btn-raised btn-success pull-right" id="btn_cash"><i class="fa fa-shopping-cart"></i> สั่งซื้อด้วยเงินสด (Cash)</button>
+                <button onclick="return confirm('ยืนยันข้อมูลรายการซื้อด้วยเครดิต (CREDIT) หรือไม่ ?');" class="btn btn-raised btn-warning pull-right" id="btn_credit"><i class="fa fa-shopping-cart"></i> สั่งซื้อด้วยเครดิต (Credit)</button>
                 <button type="button" class="btn btn-raised btn-primary pull-right" id="btt_plus"><i class="fa fa-plus"></i></button>
             </div>
         </div>

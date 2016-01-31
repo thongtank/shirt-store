@@ -10,6 +10,7 @@ $(function() {
     var divid = '';
 
     var $form = $('form');
+
     $('#btt_plus').click(function() {
         event.preventDefault();
         $indenInput.val(i);
@@ -44,13 +45,14 @@ $(function() {
         i++;
     });
 
-    $form.submit(function() {
+    $('#btn_credit').click(function() {
         event.preventDefault();
         $('#hidden_outofcredit').hide();
+        console.log(JSON.stringify($form.serializeArray()));
         $.post('backend/order.php', {
-            data: JSON.stringify($(this).serializeArray())
+            data: JSON.stringify($form.serializeArray()),
+            typeofpay : 'credit'
         }, function(data) {
-//             console.log(data);
             if (data == 'out of credit') {
                 // alert('จำนวนเครดิตของท่านไม่เพียงพอ กรุณาเติม');
                 $('#hidden_outofcredit').show();
@@ -58,6 +60,22 @@ $(function() {
                 window.location = 'buy-success.php';
             } else {
                 // console.log(data);
+            }
+        });
+    });
+
+    $('#btn_cash').click(function() {
+        event.preventDefault();
+        $('#hidden_outofcredit').hide();
+        $.post('backend/order.php', {
+            data: JSON.stringify($form.serializeArray()),
+            typeofpay : 'cash'
+        }, function(data) {
+            console.log(data);
+            if (data == 'out of credit') {
+                $('#hidden_outofcredit').show();
+            } else {
+                window.location = 'cash-confirm.php?cash_id=' + data;
             }
         });
     });

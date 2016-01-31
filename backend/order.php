@@ -55,6 +55,9 @@ if ($total > $_SESSION['credit_balance']) {
     print 'out of credit';
     exit;
 }
+
+$order->typeofpay = $_POST['typeofpay'];
+
 if ($order->set_order()) {
     for ($i = 1; $i <= $rows; $i++) {
         $order->amount = $new_data['txt_amount' . $i];
@@ -75,12 +78,16 @@ if ($order->set_order()) {
 }
 
 if ($order->update_order_total_price($total)) {
-    $member->member_id = $_SESSION['member_id'];
-    if ($member->cal_balance()) {
-        $_SESSION['credit_balance'] = $member->balance;
-        print 'done';
+    if ($_POST['typeofpay'] == 'credit') {
+        $member->member_id = $_SESSION['member_id'];
+        if ($member->cal_balance()) {
+            $_SESSION['credit_balance'] = $member->balance;
+            print 'done';
+        } else {
+            print 'Cal balance failed';
+        }
     } else {
-        print 'Cal balance failed';
+        print $order->cash_id;
     }
 } else {
     print 'update order total price error for number ' . $i . '<BR>';

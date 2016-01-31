@@ -1,6 +1,6 @@
 <?php
-
-use classes as cls;?>
+use classes as cls;
+?>
 <div class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
