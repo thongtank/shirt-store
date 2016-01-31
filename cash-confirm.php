@@ -23,8 +23,30 @@ $data = $order->get_cash_detail();
 [order_id] => 00000000005
 [member_id] => 00000000005
  */
+// $expire = 60 * 60 * 24; // มีค่าเท่ากับ 1 วัน
+// print 'current time : ' . time() . '<BR>';
+// print $data['date_expired'] . ' = expire date : ' . strtotime($data['date_expired']);
+// exit;
 
-?>
+if ($data['status'] == 'pending') {
+    $current = time();
+    $expire_date = strtotime($data['date_expired']);
+    if ($current > $expire_date) {
+        $order->order_id = $data['order_id'];
+        $order->update_status_to_expired();
+        ?>
+        <div class="clearfix"></div>
+        <div class="content">
+            <div class="col-md-12">
+                <h1 class="text-center text-danger" style="font-size: 3em;">รายการชำระค่าสินค้าเกินเวลาที่กำหนด<BR>กรุณาทำรายการใหม่</h1>
+            </div>
+            <div class="col-md-12 text-center">
+                <a href="./list-product.php.php">กลับหน้ารายการสินค้า</a>
+            </div>
+        </div>
+        <?php
+} else {
+        ?>
     <div class="clearfix"></div>
     <div class="content">
         <h2 class="title"><i class="fa fa-money"></i> แจ้งการชำระเงิน</h2>
@@ -77,5 +99,19 @@ $data = $order->get_cash_detail();
     </div>
     <script src="js/cash_confirm.js" type="text/javascript" charset="utf-8"></script>
     <?php
+}
+} else {
+    ?>
+        <div class="clearfix"></div>
+        <div class="content">
+            <div class="col-md-12">
+                <h1 class="text-center" style="font-size: 3em;">รายการนี้ถูกดำเนินการไปแล้ว</h1>
+            </div>
+            <div class="col-md-12 text-center">
+                <a href="./list-buy-product.php">กลับหน้ารายการสั่งซื้อสินค้า</a>
+            </div>
+        </div>
+        <?php
+}
 require_once './footer.inc.php';
 ?>

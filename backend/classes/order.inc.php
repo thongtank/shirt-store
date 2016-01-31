@@ -32,7 +32,7 @@ namespace classes {
         }
 
         private function set_cash_detail() {
-            $expire_date = date('Y-m-d H:i:s', strtotime('+1 days', strtotime($date_added)));
+            $expire_date = date('Y-m-d H:i:s', strtotime('+1 days'));
             $sql = "INSERT INTO `cash_detail`(`cash_id`, `status`, `date_added`, `date_expired`, `date_update_status`, `order_id`, `member_id`) ";
             $sql .= "VALUES (null,'pending',NOW(),'" . $expire_date . "',NOW()," . $this->order_id . " , " . $this->member_id . ")";
             $result = $this->query($sql, $rows, $num_rows, $last_id);
@@ -107,9 +107,40 @@ namespace classes {
         }
 
         public function update_cash_status($request_cash = 0, $bank_to = '') {
-            $sql = "UPDATE `cash_detail` SET bank_to = '" . $bank_to . "', status = 'transfered' WHERE request_cash = " . $request_cash . " AND cash_id = " . $this->cash_id . " AND member_id = " . $this->member_id . " AND order_id = " . $this->order_id . ";";
+            $sql = "UPDATE `cash_detail` SET bank_to = '" . $bank_to . "', status = 'transfered', date_update_status = NOW() WHERE request_cash = " . $request_cash . " AND cash_id = " . $this->cash_id . " AND member_id = " . $this->member_id . " AND order_id = " . $this->order_id . ";";
             $result = $this->query($sql, $rows, $num_rows, $last_id);
             if ($result) {
+                $result = null;
+                $rows = null;
+                $num_rows = null;
+                $last_id = null;
+                $sql = "UPDATE `orders` SET cash_status = 'transfered' WHERE member_id = " . $this->member_id . " AND order_id = " . $this->order_id . ";";
+                $result = $this->query($sql, $rows, $num_rows, $last_id);
+                if ($result) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        public function update_status_to_expired() {
+            $sql = "UPDATE `cash_detail` SET status = 'expired', date_update_status = NOW() WHERE cash_id = " . $this->cash_id . " AND member_id = " . $this->member_id . " AND order_id = " . $this->order_id . ";";
+            $result = $this->query($sql, $rows, $num_rows, $last_id);
+            if ($result) {
+                $result = null;
+                $rows = null;
+                $num_rows = null;
+                $last_id = null;
+                $sql = "UPDATE `orders` SET cash_status = 'expired' WHERE member_id = " . $this->member_id . " AND order_id = " . $this->order_id . ";";
+                $result = $this->query($sql, $rows, $num_rows, $last_id);
+                if ($result) {
+                    return true;
+                } else {
+                    return false;
+                }
                 return true;
             } else {
                 return false;

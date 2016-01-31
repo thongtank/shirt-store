@@ -20,12 +20,20 @@ $data_order = $order->get_order_by_member_id();
                         <th>Order ID</th>
                         <th>ราคารวม</th>
                         <th>วันที่ทำรายการ</th>
+                        <th>ประเภทการสั่งซื้อ</th>
+                        <th>สถานะ</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php
 $i = 1;
 foreach ($data_order as $k => $v) {
+    // แสดงประเภทการสั่งซื้อ
+    if ($v['typeofpay'] == 'cash') {
+        $typeofpay = 'เงินสด';
+    } else {
+        $typeofpay = 'เครดิต';
+    }
     ?>
                         <tr>
                             <td scope='row'>
@@ -34,6 +42,8 @@ foreach ($data_order as $k => $v) {
                             <td><a href="list-buy-product-detail.php?order_id=<?=$v['order_id'];?>&d=<?=base64_encode($v['date_added']);?>" title=""><?=$v['order_id'];?></a></td>
                             <td><?=number_format($v['total']);?></td>
                             <td><?=$v['date_added'];?></td>
+                            <td><?=$typeofpay;?></td>
+                            <td><?=($v['typeofpay'] == 'cash') ? $v['cash_status'] : '-';?></td>
                         </tr>
                         <?php
 $i++;
