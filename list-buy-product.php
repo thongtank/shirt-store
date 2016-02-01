@@ -34,6 +34,29 @@ foreach ($data_order as $k => $v) {
     } else {
         $typeofpay = 'เครดิต';
     }
+
+    if ($v['typeofpay'] == 'cash') {
+        switch ($v['cash_status']) {
+        case 'pending':
+            $cash_id = $order->get_cash_id_by_order_id($v['order_id'])['cash_id'];
+            $keyword = '<a href="./cash-confirm.php?cash_id=' . $cash_id . '">รอแจ้งการโอนเงิน</a>';
+            break;
+        case 'transfered':
+            $keyword = 'แจ้งการโอนเงินเรียบร้อย';
+            break;
+        case 'confirm':
+            $keyword = 'ได้รับยอดเงินค่าสินค้าแล้ว';
+            break;
+        case 'expired':
+            $keyword = 'เลยกำหนดการแจ้งชำระค่าสินค้า';
+            break;
+        default:
+            $keyword = 'ยกเลิกรายการ';
+            break;
+        }
+    } else {
+        $keyword = '-';
+    }
     ?>
                         <tr>
                             <td scope='row'>
@@ -43,7 +66,7 @@ foreach ($data_order as $k => $v) {
                             <td><?=number_format($v['total']);?></td>
                             <td><?=$v['date_added'];?></td>
                             <td><?=$typeofpay;?></td>
-                            <td><?=($v['typeofpay'] == 'cash') ? $v['cash_status'] : '-';?></td>
+                            <td><?=$keyword;?></td>
                         </tr>
                         <?php
 $i++;

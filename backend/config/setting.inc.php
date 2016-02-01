@@ -5,15 +5,15 @@ if (!defined('LOCALHOST')) {
 }
 if (!defined('USER')) {
     // define('USER', 'hitshirts_user');
-    define('USER', 'root');
+    define('USER', 'ezteesh');
 }
 if (!defined('PWD')) {
-    // define('PWD', 'ez313339');
-    define('PWD', '489329');
+    define('PWD', 'ez313339');
+    // define('PWD', '489329');
 }
 if (!defined('DBNAME')) {
     // define('DBNAME', 'hitshirts_db');
-    define('DBNAME', 'shirt');
+    define('DBNAME', 'ezteesh_DB');
 }
 if (!defined('PORT')) {
     define('PORT', 8889);

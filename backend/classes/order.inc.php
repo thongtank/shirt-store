@@ -44,6 +44,16 @@ namespace classes {
             }
         }
 
+        public function get_cash_id_by_order_id($order_id = 0) {
+            $sql = "SELECT * FROM cash_detail WHERE order_id = " . $order_id;
+            $result = $this->query($sql, $rows, $num_rows, $last_id);
+            if ($result) {
+                return $rows[0];
+            } else {
+                return false;
+            }
+        }
+
         public function set_order_detail() {
             $sql = "INSERT INTO `orders_detail`(`order_detail_id`, `product_id`, `size`, `order_id`, `manager_id`, `price`, `address`, `status`, `detail`, `amount`, `date_update_status`) ";
             $sql .= "VALUES (NULL," . $this->product_id . ",'" . $this->size . "'," . $this->order_id . ",''," . $this->price . ",'" . $this->address . "','pending','" . $this->detail . "'," . $this->amount . ",NOW());";
@@ -171,6 +181,7 @@ namespace classes {
                 return false;
             }
         }
+
         //    ส่วนของ admin
         public function get_order_all() {
             $sql = "SELECT * FROM orders";
@@ -179,6 +190,52 @@ namespace classes {
                 return $rows;
             } else {
                 return false;
+            }
+        }
+
+        public function get_order_pay_confirm() {
+            $sql = "SELECT * FROM orders WHERE orders.typeofpay ='credit' OR cash_status = 'confirm'";
+            $result = $this->query($sql, $rows, $num_rows, $last_id);
+            if ($result) {
+                return $rows;
+            } else {
+                return false;
+            }
+        }
+
+        public function get_order_pay_transfered() {
+            $sql = "SELECT * FROM orders INNER JOIN cash_detail ON orders.order_id = cash_detail.order_id WHERE orders.typeofpay ='cash' AND orders.cash_status = 'pending' AND cash_detail.status = 'transfered'";
+            $result = $this->query($sql, $rows, $num_rows, $last_id);
+            if ($result) {
+                return $rows;
+            } else {
+                return false;
+            }
+        }
+
+        public function get_order_pay_transfered_by_id($orderID) {
+            $sql = "SELECT * FROM orders INNER JOIN cash_detail ON orders.order_id = cash_detail.order_id INNER JOIN member ON orders.member_id = member.member_id WHERE orders.typeofpay ='cash' AND orders.cash_status = 'pending' AND cash_detail.status = 'transfered' AND orders.order_id=" . $orderID . "";
+            $result = $this->query($sql, $rows, $num_rows, $last_id);
+            if ($result) {
+                return $rows[0];
+            } else {
+                return false;
+            }
+        }
+
+        public function update_confirm_pay_order($data = array()) {
+            $sql = "UPDATE orders SET cash_status='confirm' WHERE order_id=" . $data['order_id'] . "";
+            $result = $this->query($sql, $rows, $num_rows, $last_id);
+            if ($result) {
+                $sql_1 = "UPDATE cash_detail SET status='confirm',manager_id=" . $data['admin_id'] . " WHERE order_id=" . $data['order_id'] . "";
+                $result_1 = $this->query($sql_1, $rows, $num_rows, $last_id);
+                if ($result_1) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } else {
+                return 0;
             }
         }
 
