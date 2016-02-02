@@ -105,8 +105,8 @@ namespace classes {
         }
 
         public function update_cash_request_price($total_price = 0) {
-            $rand = rand(1, 99) / 100;
-            $total_price += $rand;
+            // $rand = rand(1, 99) / 100;
+            // $total_price += $rand;
             $sql = "UPDATE `cash_detail` SET request_cash = " . $total_price . " WHERE cash_id = " . $this->cash_id;
             $result = $this->query($sql, $rows, $num_rows, $last_id);
             if ($result) {
@@ -116,8 +116,8 @@ namespace classes {
             }
         }
 
-        public function update_cash_status($request_cash = 0, $bank_to = '') {
-            $sql = "UPDATE `cash_detail` SET bank_to = '" . $bank_to . "', status = 'transfered', date_update_status = NOW() WHERE request_cash = " . $request_cash . " AND cash_id = " . $this->cash_id . " AND member_id = " . $this->member_id . " AND order_id = " . $this->order_id . ";";
+        public function update_cash_status($request_cash = 0, $bank_to = '', $detail = '') {
+            $sql = "UPDATE `cash_detail` SET cash_detail = '" . $detail . "', bank_to = '" . $bank_to . "', status = 'transfered', date_update_status = NOW() WHERE request_cash = " . $request_cash . " AND cash_id = " . $this->cash_id . " AND member_id = " . $this->member_id . " AND order_id = " . $this->order_id . ";";
             $result = $this->query($sql, $rows, $num_rows, $last_id);
             if ($result) {
                 $result = null;

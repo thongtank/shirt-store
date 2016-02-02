@@ -29,7 +29,7 @@ if (!isset($_SESSION['member_id'])) {
     <div class="content">
         <i class="fa fa-thumbs-up fa-6"></i>
         <h1>แจ้งการโอนเงินเสร็จสมบูรณ์</h1>
-        <a href="frm-add-credit.php">กลับหน้าเติมเครดิต</a>
+        <a href="frm-add-credit.php">กลับหน้าเติมเครดิต</a> หรือ <a href="list-buy-product.php">กลับหน้ารายการซื้อสินค้า</a>
     </div>
     <?php
 require_once './footer.inc.php';

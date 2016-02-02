@@ -18,12 +18,13 @@ foreach ($data as $key => $value) {
 [bank_to] => กสิกรไทย
 [request_cash] => 250.07
 [hidden-request_cash] => 250.07
+[transfer-detail] => messages
  */
 $order->member_id = $_SESSION['member_id'];
 $order->cash_id = $new_data['cash_id'];
 $order->order_id = $new_data['order_id'];
 
-if ($order->update_cash_status($new_data['request_cash'], $new_data['bank_to'])) {
+if ($order->update_cash_status($new_data['request_cash'], $new_data['bank_to'], $new_data['transfer-detail'])) {
     print 1;
 } else {
     print 0;
