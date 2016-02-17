@@ -19,7 +19,7 @@ namespace classes {
                     // เมื่อเคยลงทะเบียนกับเว็บไซต์ไว้แล้ว
                     $_SESSION['count_facebook_id'] = 1;
                     foreach ($rows[0] as $key => $value) {
-                        $_SESSION[$key] = $value;
+                        $_SESSION[$key] = trim($value);
                     }
                     $this->member_id = $_SESSION['member_id'];
                     $this->firstname = $_SESSION['firstname'];
@@ -84,8 +84,11 @@ namespace classes {
                 $_SESSION['mobile'] = $data['mobile'];
                 $_SESSION['tel'] = $data['tel'];
                 // $_SESSION['credit_balance'] = 0;
-
-                return 1;
+                if ($this->update_shop($_SESSION['member_id'], $data['shop_name'], $data['shop_detail'])) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             } else {
                 return 0;
             }
@@ -101,7 +104,7 @@ namespace classes {
                         '" . $data['email'] . "',
                         '" . $data['tel'] . "',
                         '" . $data['mobile'] . "' , 0, NOW());";
-            $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
+            $result = $this->query($sql, $rows, $num_rows, $last_id);
             if ($result) {
                 $_SESSION['member_id'] = $last_id;
                 $_SESSION['username'] = $data['username'];
@@ -113,6 +116,39 @@ namespace classes {
                 $_SESSION['mobile'] = $data['mobile'];
                 $_SESSION['tel'] = $data['tel'];
                 $_SESSION['credit_balance'] = 0;
+                $result = null;
+                $rows = null;
+                $num_rows = null;
+                // $last_id = null;
+                if ($this->set_shop($last_id, $data['shop_name'], $data['shop_detail'])) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } else {
+                return 0;
+            }
+        }
+
+        private function set_shop($member_id, $shop_name, $shop_detail) {
+            $sql = "INSERT INTO `shop`(`shop_id`, `shop_name`, `shop_detail`, `date_added`, `member_id`) VALUES (NULL, '" . $shop_name . "', '" . trim($shop_detail) . "', NOW(), " . $member_id . ");";
+            $result = $this->query($sql, $rows, $num_rows, $last_id);
+            if ($result) {
+                $_SESSION['shop_id'] = $last_id;
+                $_SESSION['shop_name'] = $shop_name;
+                $_SESSION['shop_detail'] = $shop_detail;
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+
+        private function update_shop($member_id, $shop_name, $shop_detail) {
+            $sql = "UPDATE shop SET shop_name = '" . $shop_name . "', shop_detail = '" . trim($shop_detail) . "' WHERE member_id = " . $_SESSION['member_id'];
+            $result = $this->query($sql, $rows, $num_rows, $last_id);
+            if ($result) {
+                $_SESSION['shop_name'] = $shop_name;
+                $_SESSION['shop_detail'] = $shop_detail;
                 return 1;
             } else {
                 return 0;
@@ -295,7 +331,8 @@ namespace classes {
 
         /* LOGIN */
         public function login($data = array()) {
-            $sql = "SELECT * FROM member Where username = '" . $data['username'] . "' AND password = '" . $data['password'] . "';";
+            // $sql = "SELECT * FROM member Where username = '" . $data['username'] . "' AND password = '" . $data['password'] . "';";
+            $sql = "SELECT * FROM member INNER JOIN shop ON member.member_id = shop.member_id Where username = '" . $data['username'] . "' AND password = '" . $data['password'] . "' LIMIT 1;";
             $result = $this->query($sql, $rows, $num_rows, $last_id, $last_id);
             if ($result) {
                 // print "num row : " . $num_rows;

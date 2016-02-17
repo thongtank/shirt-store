@@ -21,6 +21,8 @@ $(function() {
                     password: $('#txt_repassword').val(),
                     tel: $('#txt_tel').val(),
                     mobile: $('#txt_mobile').val(),
+                    shop_name: $('#shop_name').val(),
+                    shop_detail: $('#shop_detail').val(),
                     status: $('#hidden_status').val()
                 }
             })
@@ -58,6 +60,8 @@ $(function() {
                     password: $('#txt_repassword').val(),
                     tel: $('#txt_tel').val(),
                     mobile: $('#txt_mobile').val(),
+                    shop_name: $('#shop_name').val(),
+                    shop_detail: $('#shop_detail').val(),
                     status: $('#hidden_status').val()
                 }
             })

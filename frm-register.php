@@ -9,7 +9,7 @@ $member = new cls\member;
     <form id="register_form" name="register_form" method="POST" class="form-horizontal form-register">
         <input type="hidden" value="insert" id="hidden_status" name="hidden_status">
         <div class="col-md-6">
-            <p>ข้อมูลทั่วไป </p>
+            <p><b>ข้อมูลทั่วไป</b></p>
             <div class="form-group">
                 <label for="" class="control-label col-md-3">ชื่อ *</label>
                 <div class="col-md-9">
@@ -52,17 +52,17 @@ $member = new cls\member;
             </div>
         </div>
         <div class="col-md-6">
-            <p>ข้อมูลเข้าใช้ระบบ </p>
+            <p><b>ข้อมูลเข้าใช้ระบบ</b></p>
             <div class="form-group">
                 <label for="" class="control-label col-md-3">ชื่อเข้าใช้ *</label>
                 <div class="col-md-9">
-                    <input type="text" class="form-control" id="txt_username" name="txt_username" required minlength="5">
+                    <input type="text" pattern="[_a-zA-Z0-9]{2,20}" class="form-control" id="txt_username" name="txt_username" required minlength="5">
                 </div>
             </div>
             <div class="form-group">
                 <label for="" class="control-label col-md-3">รหัสผ่าน *</label>
                 <div class="col-md-9">
-                     <input type="password" class="form-control" id="txt_password" name="txt_password" required minlength="6">
+                     <input type="password" pattern="[a-zA-Z0-9_]{2,20}" class="form-control" id="txt_password" name="txt_password" required minlength="6">
                 </div>
             </div>
             <div class="form-group">
@@ -71,6 +71,19 @@ $member = new cls\member;
                     <input type="password" class="form-control" id="txt_repassword" name="txt_repassword" required minlength="6">
                 </div>
             </div>
+            <p><b>ข้อมูลร้านค้า</b></p>
+            <div class="form-group">
+                    <label for="shop_name" class="col-md-3 control-label">ชื่อร้าน *</label>
+                    <div class="col-md-9">
+                        <input type="text" name="shop_name" id="shop_name" class="form-control" value="" required="required" placeholder="กรอกชื่อร้านค้าของท่าน">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="shop_detail" class="control-label col-md-3">รายละเอียดร้านค้า</label>
+                    <div class="col-md-9">
+                        <textarea name="shop_detail" id="shop_detail" class="form-control" rows="3" aria-described="shop_detail-helpBlock"></textarea>
+                    </div>
+                </div>
         </div>
         <div class="col-md-12">
             <div class="form-group">

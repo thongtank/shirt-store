@@ -15,7 +15,7 @@ $member = new cls\member;
         <form action="#" id="update_form" name="update_form" method="POST" class="form-horizontal form-register">
             <input type="hidden" value="update" id="hidden_status" name="hidden_status">
             <div class="col-md-6">
-                <p>ข้อมูลทั่วไป </p>
+                <p><b>ข้อมูลทั่วไป</b></p>
                 <div class="form-group">
                     <label for="" class="control-label col-md-3">ชื่อ *</label>
                     <div class="col-md-9">
@@ -57,8 +57,26 @@ $member = new cls\member;
                     </div>
                 </div>
             </div>
-            <?php if (!isset($_SESSION['facebook_id'])) {?>
             <div class="col-md-6">
+                <p><b>ข้อมูลร้านค้า</b></p>
+                <div class="form-group">
+                    <label for="shop_name" class="col-md-3 control-label">ชื่อร้าน *</label>
+                    <div class="col-md-9">
+                        <input type="text" name="shop_name" id="shop_name" class="form-control" value="<?=$_SESSION['shop_name'];?>" required="required" placeholder="กรอกชื่อร้านค้าของท่าน">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="shop_detail" class="control-label col-md-3">รายละเอียดร้านค้า</label>
+                    <div class="col-md-9">
+                        <textarea name="shop_detail" id="shop_detail" class="form-control" rows="3" aria-described="shop_detail-helpBlock">
+                            <?=trim($_SESSION['shop_detail']);?>
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+            <?php
+if (empty($_SESSION['facebook_id'])) {?>
+                <!-- <div class="col-md-6">
                 <p>ข้อมูลเข้าใช้ระบบ </p>
                 <div class="form-group">
                     <label for="" class="control-label col-md-3">ชื่อเข้าใช้ *</label>
@@ -78,16 +96,16 @@ $member = new cls\member;
                         <input type="password" class="form-control" id="txt_repassword" name="txt_repassword" required minlength="6">
                     </div>
                 </div>
-            </div>
-            <?php }
+            </div> -->
+                <?php }
 ?>
-            <div class="col-md-12">
-                <div class="form-group">
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-raised btn-primary pull-right" id="" name="" value="บันทึกข้อมูล"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-raised btn-primary pull-right" id="" name="" value="บันทึกข้อมูล"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
         </form>
     </div>
     <script type="text/javascript" src="js/member.js"></script>
